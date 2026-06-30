@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora de Ticket Promedio Ponderado | Kitify</title>
+  <meta name="description" content="Calcula el ticket promedio ponderado de tu negocio según el mix de ventas de tus productos o servicios. Gratis, sin registro." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --violet: #7B61FF;
+      --violet-light: #9E8FFF;
+      --violet-dark: #5340C9;
+      --coral: #FF7A5A;
+      --coral-dark: #CC4A28;
+      --green: #2D9E75;
+      --green-light: #5FD9A8;
+      --red: #E85D5D;
+      --night: #1A1A2E;
+      --night2: #12122A;
+      --night3: #22224A;
+      --night4: #2A2A40;
+      --border: #2E2E4A;
+      --border2: #3E3E5E;
+      --muted: #8888AA;
+      --dim: #55557A;
+      --white: #ffffff;
+      --font-head: 'Plus Jakarta Sans', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    body {
+      background: var(--night);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    h1, h2, h3, h4 { font-family: var(--font-head); }
+    a { text-decoration: none; color: inherit; }
+    .container { max-width: 820px; margin: 0 auto; padding: 0 2rem; }
+
+    /* NAV */
+    nav { border-bottom: 0.5px solid var(--border); padding: 1rem 0; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+    .logo { display: flex; align-items: center; gap: 9px; }
+    .logo-mark { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; width: 22px; height: 22px; }
+    .logo-mark span { border-radius: 3px; background: var(--violet); }
+    .logo-mark span:nth-child(2), .logo-mark span:nth-child(3) { opacity: 0.5; }
+    .logo-mark span:nth-child(4) { opacity: 0.25; }
+    .logo-text { font-family: var(--font-head); font-size: 18px; font-weight: 700; letter-spacing: -0.4px; }
+    .back-link { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+    .back-link:hover { color: var(--white); }
+
+    /* HERO */
+    .tool-hero { padding: 3rem 0 2rem; text-align: center; }
+    .tool-pill { display: inline-block; background: var(--night4); border: 0.5px solid var(--border2); border-radius: 20px; padding: 5px 16px; margin-bottom: 1.25rem; font-size: 12px; color: var(--violet-light); font-weight: 500; }
+    .tool-hero h1 { font-size: clamp(26px, 5vw, 40px); font-weight: 800; letter-spacing: -1px; line-height: 1.15; margin-bottom: 0.75rem; }
+    .tool-hero h1 span { color: var(--violet); }
+    .tool-hero p { font-size: 15px; color: var(--muted); max-width: 520px; margin: 0 auto; line-height: 1.7; }
+
+    /* TOOL CARD */
+    .tool-card { background: var(--night3); border: 0.5px solid var(--border2); border-radius: 18px; padding: 1.75rem; margin: 2rem 0; }
+    .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
+    .card-title { font-size: 14px; font-weight: 700; font-family: var(--font-head); }
+    .add-row-btn {
+      background: var(--night4); border: 0.5px solid var(--border2); color: var(--violet-light);
+      font-size: 12px; font-weight: 600; padding: 7px 14px; border-radius: 8px;
+      cursor: pointer; font-family: var(--font-head); transition: background 0.2s;
+    }
+    .add-row-btn:hover { background: var(--night); }
+
+    .table-head, .row-item {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 32px; gap: 10px; align-items: center;
+    }
+    .table-head { padding: 0 4px 8px; }
+    .table-head span { font-size: 11px; color: var(--dim); font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; }
+    .row-item { margin-bottom: 8px; }
+    .row-input {
+      background: var(--night); border: 0.5px solid var(--border2); border-radius: 8px;
+      padding: 10px 12px; font-size: 13px; color: var(--white); outline: none;
+      font-family: var(--font-body); width: 100%; transition: border-color 0.2s;
+    }
+    .row-input:focus { border-color: var(--violet); }
+    .row-input::placeholder { color: var(--dim); }
+    .remove-btn {
+      width: 28px; height: 28px; border-radius: 7px; background: var(--night4);
+      border: 0.5px solid var(--border2); color: var(--red); cursor: pointer;
+      display: flex; align-items: center; justify-content: center; font-size: 14px;
+      transition: background 0.2s;
+    }
+    .remove-btn:hover { background: #2A1A1A; }
+
+    .mix-sum-row {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 1rem; padding-top: 1rem; border-top: 0.5px solid var(--border2);
+    }
+    .mix-sum-label { font-size: 12px; color: var(--muted); }
+    .mix-sum-value { font-size: 14px; font-weight: 700; font-family: var(--font-head); }
+    .mix-sum-value.ok { color: var(--green-light); }
+    .mix-sum-value.warn { color: var(--coral); }
+
+    /* RESULT */
+    .result-box { background: linear-gradient(135deg, var(--night2), var(--night3)); border: 1px solid var(--violet); border-radius: 16px; padding: 1.75rem; margin: 1.5rem 0; text-align: center; }
+    .result-label { font-size: 11px; color: var(--violet-light); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; }
+    .result-value { font-size: 42px; font-weight: 800; font-family: var(--font-head); color: var(--white); letter-spacing: -1px; }
+    .result-sub { font-size: 13px; color: var(--muted); margin-top: 6px; }
+    .breakdown { display: flex; flex-direction: column; gap: 6px; margin-top: 1.25rem; text-align: left; }
+    .breakdown-item { display: flex; justify-content: space-between; font-size: 12px; padding: 8px 12px; background: var(--night); border-radius: 8px; }
+    .breakdown-item .bname { color: var(--muted); }
+    .breakdown-item .bval { color: var(--white); font-weight: 600; }
+
+    /* INFO STRIP */
+    .info-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 2rem 0; text-align: center; }
+    .info-item { background: var(--night2); border-radius: 12px; padding: 1.25rem 0.75rem; }
+    .info-icon { font-size: 20px; margin-bottom: 6px; }
+    .info-title { font-size: 12px; font-weight: 600; color: var(--white); margin-bottom: 2px; font-family: var(--font-head); }
+    .info-desc { font-size: 11px; color: var(--muted); }
+
+    /* EXPLAINER */
+    .explainer { background: var(--night2); border-radius: 14px; padding: 1.5rem; margin: 2rem 0; }
+    .explainer h3 { font-size: 15px; margin-bottom: 8px; }
+    .explainer p { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+    /* CTA */
+    .cta-box { background: linear-gradient(135deg, var(--night3), var(--night2)); border: 0.5px solid var(--border2); border-radius: 16px; padding: 1.75rem; text-align: center; margin: 2rem 0; }
+    .cta-box p.label { font-size: 11px; color: var(--violet-light); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; margin-bottom: 10px; }
+    .cta-box h3 { font-size: 19px; font-weight: 700; margin-bottom: 8px; }
+    .cta-box p.desc { font-size: 13px; color: var(--muted); margin-bottom: 1.25rem; max-width: 420px; margin-left: auto; margin-right: auto; }
+    .cta-btn { display: inline-block; background: var(--violet); color: var(--white); font-family: var(--font-head); font-size: 13px; font-weight: 700; padding: 11px 24px; border-radius: 24px; cursor: pointer; transition: background 0.2s; }
+    .cta-btn:hover { background: var(--violet-dark); }
+
+    /* OTHER TOOLS */
+    .other-tools { margin: 2.5rem 0 3rem; }
+    .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); margin-bottom: 1rem; }
+    .tools-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .tool-link-card { background: var(--night3); border: 0.5px solid var(--border2); border-radius: 12px; padding: 1rem; display: flex; align-items: center; gap: 10px; opacity: 0.55; }
+    .tool-link-card.active { opacity: 1; cursor: pointer; transition: border-color 0.2s; }
+    .tool-link-card.active:hover { border-color: var(--violet); }
+    .tool-link-card .icon { font-size: 18px; }
+    .tool-link-card .name { font-size: 12px; font-weight: 600; color: var(--white); }
+    .tool-link-card .tag { font-size: 10px; color: var(--dim); }
+
+    footer { border-top: 0.5px solid var(--border); padding: 2rem 0; text-align: center; }
+    footer p { font-size: 12px; color: var(--dim); }
+    footer a { color: var(--violet-light); }
+
+    @media (max-width: 600px) {
+      .info-strip, .tools-grid { grid-template-columns: 1fr; }
+      .table-head span:nth-child(1) { grid-column: span 1; }
+      .table-head, .row-item { grid-template-columns: 1.4fr 0.8fr 0.8fr 28px; gap: 6px; }
+      .row-input { font-size: 12px; padding: 9px 8px; }
+      .result-value { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-mark"><span></span><span></span><span></span><span></span></div>
+        <span class="logo-text">kitify</span>
+      </a>
+      <a href="index.html" class="back-link">← <span>Volver al inicio</span></a>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- HERO -->
+    <div class="tool-hero">
+      <div class="tool-pill">🛠️ Herramienta gratis de Kitify</div>
+      <h1>Calculadora de<br><span>Ticket Promedio Ponderado</span></h1>
+      <p>Si vendes varios productos o planes a precios distintos, esta herramienta te dice cuánto ganas realmente por venta — tomando en cuenta qué tan seguido se vende cada uno.</p>
+    </div>
+
+    <!-- TOOL -->
+    <div class="tool-card">
+      <div class="card-header">
+        <span class="card-title">📊 Tu mix de productos o servicios</span>
+        <button class="add-row-btn" onclick="addRow()">+ Agregar línea</button>
+      </div>
+
+      <div class="table-head">
+        <span>Producto / Servicio</span>
+        <span>Precio (USD)</span>
+        <span>% del mix</span>
+        <span></span>
+      </div>
+
+      <div id="rowsContainer"></div>
+
+      <div class="mix-sum-row">
+        <span class="mix-sum-label">Suma de % del mix (debe ser 100%)</span>
+        <span class="mix-sum-value" id="mixSum">0%</span>
+      </div>
+    </div>
+
+    <!-- RESULT -->
+    <div class="result-box">
+      <p class="result-label">✅ Ticket promedio ponderado</p>
+      <div class="result-value" id="resultValue">$0</div>
+      <p class="result-sub">Esto es lo que ganas en promedio por cada venta, considerando tu mix actual.</p>
+      <div class="breakdown" id="breakdown"></div>
+    </div>
+
+    <!-- INFO -->
+    <div class="info-strip">
+      <div class="info-item">
+        <div class="info-icon">⚡</div>
+        <div class="info-title">Cálculo automático</div>
+        <div class="info-desc">Se actualiza al escribir</div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">🔒</div>
+        <div class="info-title">100% privado</div>
+        <div class="info-desc">No guardamos tus datos</div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">📱</div>
+        <div class="info-title">Sin registro</div>
+        <div class="info-desc">Úsala cuantas veces quieras</div>
+      </div>
+    </div>
+
+    <!-- EXPLAINER -->
+    <div class="explainer">
+      <h3>¿Para qué sirve esto?</h3>
+      <p>El ticket promedio ponderado es más preciso que un promedio simple. Si vendes 3 planes a precios distintos, no todos se venden igual de seguido — este número te dice cuánto ingresa realmente "por cliente" en promedio, y es la base para calcular tu ROI, tu punto de equilibrio y cuánto presupuesto de marketing puedes invertir con seguridad.</p>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-box">
+      <p class="label">Siguiente paso</p>
+      <h3>¿Quieres proyectar tu ROI con este ticket?</h3>
+      <p class="desc">El Kit Funnel Completo incluye el modelo de rendimiento completo: leads, conversión, ROI y punto de equilibrio.</p>
+      <a href="index.html#recursos" class="cta-btn">Ver el Kit Funnel →</a>
+    </div>
+
+    <!-- OTHER TOOLS -->
+    <div class="other-tools">
+      <p class="section-label">Más herramientas gratis de Kitify</p>
+      <div class="tools-grid">
+        <a href="whatsapp-generator.html" class="tool-link-card active">
+          <span class="icon">💬</span>
+          <div>
+            <div class="name">Generador de links de WhatsApp</div>
+            <div class="tag">Disponible</div>
+          </div>
+        </a>
+        <div class="tool-link-card">
+          <span class="icon">💰</span>
+          <div>
+            <div class="name">Media Budget Planner</div>
+            <div class="tag">Próximamente</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>© 2026 Kitify · <a href="index.html">getkitify.com</a></p>
+  </footer>
+
+  <script>
+    let rowId = 0;
+
+    const defaultRows = [
+      { name: 'Free', price: 0, mix: 0 },
+      { name: 'Standard', price: 699, mix: 25 },
+      { name: 'Pro', price: 899, mix: 75 }
+    ];
+
+    function addRow(data) {
+      rowId++;
+      const container = document.getElementById('rowsContainer');
+      const row = document.createElement('div');
+      row.className = 'row-item';
+      row.id = `row-${rowId}`;
+      row.innerHTML = `
+        <input class="row-input" type="text" placeholder="Nombre del producto" value="${data?.name || ''}" oninput="calculate()" />
+        <input class="row-input" type="number" placeholder="0" min="0" step="0.01" value="${data?.price ?? ''}" oninput="calculate()" />
+        <input class="row-input" type="number" placeholder="0" min="0" max="100" step="0.1" value="${data?.mix ?? ''}" oninput="calculate()" />
+        <button class="remove-btn" onclick="removeRow(${rowId})">✕</button>
+      `;
+      container.appendChild(row);
+    }
+
+    function removeRow(id) {
+      const row = document.getElementById(`row-${id}`);
+      if (row) row.remove();
+      calculate();
+    }
+
+    function calculate() {
+      const rows = document.querySelectorAll('.row-item');
+      let totalMix = 0;
+      let weightedSum = 0;
+      const breakdownItems = [];
+
+      rows.forEach(row => {
+        const inputs = row.querySelectorAll('.row-input');
+        const name = inputs[0].value.trim() || 'Sin nombre';
+        const price = parseFloat(inputs[1].value) || 0;
+        const mix = parseFloat(inputs[2].value) || 0;
+        totalMix += mix;
+        const contribution = price * (mix / 100);
+        weightedSum += contribution;
+        if (price > 0 || mix > 0) {
+          breakdownItems.push({ name, price, mix, contribution });
+        }
+      });
+
+      const mixSumEl = document.getElementById('mixSum');
+      mixSumEl.textContent = `${totalMix.toFixed(1)}%`;
+      mixSumEl.className = 'mix-sum-value ' + (Math.abs(totalMix - 100) < 0.1 ? 'ok' : 'warn');
+
+      document.getElementById('resultValue').textContent = `$${weightedSum.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+      const breakdownEl = document.getElementById('breakdown');
+      breakdownEl.innerHTML = breakdownItems.map(item => `
+        <div class="breakdown-item">
+          <span class="bname">${item.name} — $${item.price} × ${item.mix}%</span>
+          <span class="bval">$${item.contribution.toFixed(2)}</span>
+        </div>
+      `).join('');
+    }
+
+    defaultRows.forEach(r => addRow(r));
+    calculate();
+  </script>
+
+</body>
+</html>
