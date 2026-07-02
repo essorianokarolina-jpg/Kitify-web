@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora de Presupuesto Meta Ads | Kitify</title>
+  <meta name="description" content="Calcula cuánto invertir en Meta Ads, cómo distribuirlo por canal y cuántos clientes puedes esperar. Gratis, sin registro." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --violet: #7B61FF; --violet-light: #9E8FFF; --violet-dark: #5340C9;
+      --coral: #FF7A5A; --coral-dark: #CC4A28;
+      --green: #2D9E75; --green-light: #5FD9A8;
+      --yellow: #F5C542; --red: #E85D5D;
+      --night: #1A1A2E; --night2: #12122A; --night3: #22224A; --night4: #2A2A40;
+      --border: #2E2E4A; --border2: #3E3E5E;
+      --muted: #8888AA; --dim: #55557A; --white: #ffffff;
+      --font-head: 'Plus Jakarta Sans', sans-serif; --font-body: 'DM Sans', sans-serif;
+    }
+    body { background: var(--night); color: var(--white); font-family: var(--font-body); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+    h1, h2, h3, h4 { font-family: var(--font-head); }
+    a { text-decoration: none; color: inherit; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 2rem; }
+
+    /* NAV */
+    nav { border-bottom: 0.5px solid var(--border); padding: 1rem 0; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+    .logo { display: flex; align-items: center; gap: 9px; }
+    .logo-mark { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; width: 22px; height: 22px; }
+    .logo-mark span { border-radius: 3px; background: var(--violet); }
+    .logo-mark span:nth-child(2), .logo-mark span:nth-child(3) { opacity: 0.5; }
+    .logo-mark span:nth-child(4) { opacity: 0.25; }
+    .logo-text { font-family: var(--font-head); font-size: 18px; font-weight: 700; letter-spacing: -0.4px; }
+    .back-link { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+    .back-link:hover { color: var(--white); }
+
+    /* HERO */
+    .tool-hero { padding: 3rem 0 2rem; text-align: center; }
+    .tool-pill { display: inline-block; background: var(--night4); border: 0.5px solid var(--border2); border-radius: 20px; padding: 5px 16px; margin-bottom: 1.25rem; font-size: 12px; color: var(--violet-light); font-weight: 500; }
+    .tool-hero h1 { font-size: clamp(26px, 5vw, 40px); font-weight: 800; letter-spacing: -1px; line-height: 1.15; margin-bottom: 0.75rem; }
+    .tool-hero h1 span { color: var(--violet); }
+    .tool-hero p { font-size: 15px; color: var(--muted); max-width: 520px; margin: 0 auto; line-height: 1.7; }
+
+    /* TABS */
+    .tabs { display: flex; gap: 6px; margin: 2rem 0 1rem; }
+    .tab-btn { padding: 9px 18px; border-radius: 10px; font-size: 13px; font-weight: 600; font-family: var(--font-head); cursor: pointer; border: 0.5px solid var(--border2); background: var(--night3); color: var(--muted); transition: all 0.2s; }
+    .tab-btn.active { background: var(--violet); color: var(--white); border-color: var(--violet); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* CARDS */
+    .card { background: var(--night3); border: 0.5px solid var(--border2); border-radius: 16px; padding: 1.5rem; margin-bottom: 1rem; }
+    .card-title { font-size: 14px; font-weight: 700; font-family: var(--font-head); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px; }
+
+    /* FORM */
+    .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-label { font-size: 11px; color: var(--muted); font-weight: 500; }
+    .form-label span { color: var(--dim); font-weight: 400; }
+    .form-input {
+      background: var(--night); border: 0.5px solid var(--border2); border-radius: 9px;
+      padding: 11px 13px; font-size: 14px; color: var(--white); outline: none;
+      font-family: var(--font-body); transition: border-color 0.2s; width: 100%;
+    }
+    .form-input:focus { border-color: var(--violet); }
+    .form-input::placeholder { color: var(--dim); }
+    .input-prefix { position: relative; }
+    .input-prefix .prefix { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 13px; color: var(--muted); pointer-events: none; }
+    .input-prefix .form-input { padding-left: 24px; }
+    .input-suffix { position: relative; }
+    .input-suffix .suffix { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 13px; color: var(--muted); pointer-events: none; }
+    .input-suffix .form-input { padding-right: 30px; }
+
+    /* CHANNEL TABLE */
+    .channel-table { width: 100%; border-collapse: collapse; margin-top: 0.75rem; }
+    .channel-table th { font-size: 11px; color: var(--dim); font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; padding: 0 8px 8px; text-align: left; }
+    .channel-table td { padding: 5px 8px 5px 0; vertical-align: middle; }
+    .channel-table td:last-child { padding-right: 0; }
+    .channel-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+    .channel-name { font-size: 13px; color: var(--white); }
+    .pct-sum { font-size: 12px; font-weight: 600; padding: 8px 0 0; }
+    .pct-sum.ok { color: var(--green-light); }
+    .pct-sum.warn { color: var(--coral); }
+
+    /* RESULTS */
+    .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1rem; }
+    .result-card { background: var(--night2); border: 0.5px solid var(--border2); border-radius: 14px; padding: 1.25rem; }
+    .result-card.accent { border-color: var(--violet); }
+    .result-card .r-label { font-size: 11px; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.04em; }
+    .result-card .r-value { font-size: 26px; font-weight: 800; font-family: var(--font-head); letter-spacing: -0.5px; }
+    .result-card .r-sub { font-size: 11px; color: var(--dim); margin-top: 4px; }
+
+    /* SCENARIO TABLE */
+    .scenario-table { width: 100%; border-collapse: collapse; margin-top: 0.75rem; }
+    .scenario-table th { font-size: 11px; color: var(--dim); font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; padding: 0 0 10px; text-align: left; border-bottom: 0.5px solid var(--border2); }
+    .scenario-table td { padding: 10px 0; font-size: 13px; border-bottom: 0.5px solid var(--border); }
+    .scenario-table tr:last-child td { border-bottom: none; }
+    .scenario-badge { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; }
+    .badge-cons { background: #2A1A1A; color: var(--coral); }
+    .badge-opt { background: #1A3A2E; color: var(--green-light); }
+    .highlight { font-weight: 700; color: var(--white); }
+
+    /* CHANNEL BREAKDOWN */
+    .channel-breakdown { display: flex; flex-direction: column; gap: 8px; margin-top: 1rem; }
+    .ch-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: var(--night); border-radius: 10px; }
+    .ch-row .ch-left { display: flex; align-items: center; gap: 10px; }
+    .ch-row .ch-name { font-size: 13px; color: var(--white); }
+    .ch-row .ch-pct { font-size: 11px; color: var(--muted); }
+    .ch-row .ch-amount { font-size: 14px; font-weight: 700; font-family: var(--font-head); }
+
+    /* TARGETS TABLE */
+    .targets-table { width: 100%; border-collapse: collapse; margin-top: 0.75rem; }
+    .targets-table th { font-size: 11px; color: var(--dim); font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; padding: 0 0 10px; text-align: left; border-bottom: 0.5px solid var(--border2); }
+    .targets-table td { padding: 10px 0; font-size: 13px; border-bottom: 0.5px solid var(--border); }
+    .targets-table tr:last-child td { border-bottom: none; }
+    .targets-table .td-num { font-family: var(--font-head); font-weight: 600; }
+
+    /* BREAK-EVEN */
+    .breakeven-box { background: var(--night2); border: 0.5px solid var(--border2); border-radius: 14px; padding: 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .breakeven-box .be-label { font-size: 13px; color: var(--muted); }
+    .breakeven-box .be-value { font-size: 20px; font-weight: 800; font-family: var(--font-head); color: var(--yellow); }
+
+    /* INFO STRIP */
+    .info-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 2rem 0; text-align: center; }
+    .info-item { background: var(--night2); border-radius: 12px; padding: 1.25rem 0.75rem; }
+    .info-icon { font-size: 20px; margin-bottom: 6px; }
+    .info-title { font-size: 12px; font-weight: 600; color: var(--white); margin-bottom: 2px; font-family: var(--font-head); }
+    .info-desc { font-size: 11px; color: var(--muted); }
+
+    /* CTA */
+    .cta-box { background: linear-gradient(135deg, var(--night3), var(--night2)); border: 0.5px solid var(--border2); border-radius: 16px; padding: 1.75rem; text-align: center; margin: 2rem 0; }
+    .cta-box .label { font-size: 11px; color: var(--violet-light); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; margin-bottom: 10px; }
+    .cta-box h3 { font-size: 19px; font-weight: 700; margin-bottom: 8px; }
+    .cta-box .desc { font-size: 13px; color: var(--muted); margin-bottom: 1.25rem; max-width: 420px; margin-left: auto; margin-right: auto; }
+    .cta-btn { display: inline-block; background: var(--violet); color: var(--white); font-family: var(--font-head); font-size: 13px; font-weight: 700; padding: 11px 24px; border-radius: 24px; cursor: pointer; transition: background 0.2s; }
+    .cta-btn:hover { background: var(--violet-dark); }
+
+    /* OTHER TOOLS */
+    .tools-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 1rem; }
+    .tool-link-card { background: var(--night3); border: 0.5px solid var(--border2); border-radius: 12px; padding: 1rem; display: flex; align-items: center; gap: 10px; transition: border-color 0.2s; }
+    .tool-link-card.active:hover { border-color: var(--violet); }
+    .tool-link-card.dimmed { opacity: 0.5; }
+    .tool-link-card .icon { font-size: 18px; }
+    .tool-link-card .name { font-size: 12px; font-weight: 600; color: var(--white); }
+    .tool-link-card .tag { font-size: 10px; color: var(--dim); }
+    .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); margin-bottom: 1rem; margin-top: 2.5rem; }
+
+    footer { border-top: 0.5px solid var(--border); padding: 2rem 0; text-align: center; }
+    footer p { font-size: 12px; color: var(--dim); }
+    footer a { color: var(--violet-light); }
+
+    @media (max-width: 640px) {
+      .form-grid-2, .form-grid-3, .results-grid, .info-strip, .tools-grid { grid-template-columns: 1fr; }
+      .tabs { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-mark"><span></span><span></span><span></span><span></span></div>
+      <span class="logo-text">kitify</span>
+    </a>
+    <a href="index.html" class="back-link">← Volver al inicio</a>
+  </div>
+</nav>
+
+<div class="container">
+
+  <div class="tool-hero">
+    <div class="tool-pill">🛠️ Herramienta gratis de Kitify</div>
+    <h1>Calculadora de<br><span>Presupuesto Meta Ads</span></h1>
+    <p>Define cuánto invertir, cómo distribuirlo entre canales y cuántos clientes puedes esperar — en escenario conservador y optimista.</p>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('presupuesto')">💰 Presupuesto</button>
+    <button class="tab-btn" onclick="switchTab('rendimiento')">📈 Rendimiento</button>
+    <button class="tab-btn" onclick="switchTab('metas')">🎯 Metas</button>
+  </div>
+
+  <!-- TAB 1: PRESUPUESTO -->
+  <div id="tab-presupuesto" class="tab-content active">
+
+    <div class="card">
+      <div class="card-title">⚙️ Configuración de campaña</div>
+      <div class="form-grid-3">
+        <div class="form-group">
+          <label class="form-label">Presupuesto mensual de medios <span>(USD)</span></label>
+          <div class="input-prefix">
+            <span class="prefix">$</span>
+            <input class="form-input" id="budgetMonthly" type="number" value="1500" min="1" oninput="calculate()" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Meses de campaña</label>
+          <input class="form-input" id="months" type="number" value="2" min="1" max="24" oninput="calculate()" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Fee de agencia <span>(% adicional)</span></label>
+          <div class="input-suffix">
+            <input class="form-input" id="agencyFee" type="number" value="20" min="0" max="100" oninput="calculate()" />
+            <span class="suffix">%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📡 Distribución por canal <span style="font-size:11px;color:var(--muted);font-weight:400;">(la suma debe ser 100%)</span></div>
+      <table class="channel-table">
+        <thead>
+          <tr>
+            <th>Canal</th>
+            <th style="width:100px;">% de medios</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="channel-dot" style="background:#4285F4;"></span><span class="channel-name">Google Search (Marca)</span></td>
+            <td>
+              <div class="input-suffix">
+                <input class="form-input" id="pctGoogle" type="number" value="20" min="0" max="100" oninput="calculate()" style="padding-right:26px;" />
+                <span class="suffix">%</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="channel-dot" style="background:#1877F3;"></span><span class="channel-name">Meta Ads – Leads</span></td>
+            <td>
+              <div class="input-suffix">
+                <input class="form-input" id="pctMeta" type="number" value="70" min="0" max="100" oninput="calculate()" style="padding-right:26px;" />
+                <span class="suffix">%</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="channel-dot" style="background:#9E8FFF;"></span><span class="channel-name">Meta Remarketing</span></td>
+            <td>
+              <div class="input-suffix">
+                <input class="form-input" id="pctRemarketing" type="number" value="10" min="0" max="100" oninput="calculate()" style="padding-right:26px;" />
+                <span class="suffix">%</span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="pct-sum" id="pctSumLabel">Suma: 100% ✓</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📊 Resumen de inversión</div>
+      <div class="results-grid">
+        <div class="result-card">
+          <div class="r-label">Presupuesto total de medios</div>
+          <div class="r-value" id="r-totalMedia">$0</div>
+          <div class="r-sub" id="r-totalMediaSub"></div>
+        </div>
+        <div class="result-card">
+          <div class="r-label">Fee de agencia total</div>
+          <div class="r-value" id="r-totalFee">$0</div>
+          <div class="r-sub" id="r-totalFeeSub"></div>
+        </div>
+        <div class="result-card accent">
+          <div class="r-label">Total general (medios + fee)</div>
+          <div class="r-value" id="r-totalGeneral">$0</div>
+          <div class="r-sub" id="r-totalGeneralSub"></div>
+        </div>
+        <div class="result-card">
+          <div class="r-label">Inversión mensual total</div>
+          <div class="r-value" id="r-monthlyTotal">$0</div>
+          <div class="r-sub">medios + fee por mes</div>
+        </div>
+      </div>
+
+      <div class="channel-breakdown" id="channelBreakdown"></div>
+    </div>
+
+  </div>
+
+  <!-- TAB 2: RENDIMIENTO -->
+  <div id="tab-rendimiento" class="tab-content">
+
+    <div class="card">
+      <div class="card-title">⚙️ Parámetros de rendimiento</div>
+      <div class="form-grid-2">
+        <div class="form-group">
+          <label class="form-label">Ticket promedio (USD)</label>
+          <div class="input-prefix">
+            <span class="prefix">$</span>
+            <input class="form-input" id="ticket" type="number" value="849" min="1" oninput="calculate()" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tasa de conversión Lead → Cliente <span>(%)</span></label>
+          <div class="input-suffix">
+            <input class="form-input" id="convRate" type="number" value="15" min="0.1" max="100" step="0.1" oninput="calculate()" />
+            <span class="suffix">%</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">CPL Conservador <span>(costo por lead)</span></label>
+          <div class="input-prefix">
+            <span class="prefix">$</span>
+            <input class="form-input" id="cplCons" type="number" value="100" min="1" oninput="calculate()" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">CPL Optimista <span>(costo por lead)</span></label>
+          <div class="input-prefix">
+            <span class="prefix">$</span>
+            <input class="form-input" id="cplOpt" type="number" value="80" min="1" oninput="calculate()" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📈 Escenarios de resultado</div>
+      <table class="scenario-table">
+        <thead>
+          <tr>
+            <th>Escenario</th>
+            <th>Leads/mes</th>
+            <th>Clientes/mes</th>
+            <th>Ingresos/mes</th>
+            <th>ROI mensual</th>
+          </tr>
+        </thead>
+        <tbody id="scenarioBody"></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🏁 Totales de campaña</div>
+      <table class="scenario-table">
+        <thead>
+          <tr>
+            <th>Escenario</th>
+            <th>Leads totales</th>
+            <th>Clientes totales</th>
+            <th>Ingresos totales</th>
+            <th>ROI campaña</th>
+          </tr>
+        </thead>
+        <tbody id="totalsBody"></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title">⚖️ Punto de equilibrio</div>
+      <div class="breakeven-box">
+        <div>
+          <div class="be-label">Clientes necesarios por mes para cubrir medios</div>
+          <div class="be-value" id="beClients">—</div>
+        </div>
+        <div>
+          <div class="be-label">Leads necesarios por mes para el equilibrio</div>
+          <div class="be-value" id="beLeads">—</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TAB 3: METAS -->
+  <div id="tab-metas" class="tab-content">
+
+    <div class="card">
+      <div class="card-title">⚙️ Parámetros para calcular metas</div>
+      <div class="form-grid-2">
+        <div class="form-group">
+          <label class="form-label">Conversión Lead → Cliente <span>(%)</span></label>
+          <div class="input-suffix">
+            <input class="form-input" id="metaConv" type="number" value="15" min="0.1" max="100" step="0.1" oninput="calculate()" />
+            <span class="suffix">%</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">CPL de trabajo <span>(USD)</span></label>
+          <div class="input-prefix">
+            <span class="prefix">$</span>
+            <input class="form-input" id="metaCPL" type="number" value="90" min="1" oninput="calculate()" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🎯 ¿Cuánto necesitas invertir según tu meta de clientes?</div>
+      <table class="targets-table">
+        <thead>
+          <tr>
+            <th>Clientes meta/mes</th>
+            <th>Leads requeridos/mes</th>
+            <th>Presupuesto requerido/mes</th>
+          </tr>
+        </thead>
+        <tbody id="targetsBody"></tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- INFO -->
+  <div class="info-strip">
+    <div class="info-item">
+      <div class="info-icon">⚡</div>
+      <div class="info-title">Cálculo en tiempo real</div>
+      <div class="info-desc">Se actualiza al escribir</div>
+    </div>
+    <div class="info-item">
+      <div class="info-icon">🔒</div>
+      <div class="info-title">100% privado</div>
+      <div class="info-desc">No guardamos tus datos</div>
+    </div>
+    <div class="info-item">
+      <div class="info-icon">📊</div>
+      <div class="info-title">3 módulos integrados</div>
+      <div class="info-desc">Presupuesto, ROI y metas</div>
+    </div>
+  </div>
+
+  <div class="cta-box">
+    <p class="label">Siguiente paso</p>
+    <h3>¿Quieres implementar tu funnel completo?</h3>
+    <p class="desc">El Kit Funnel Completo te da el framework, las plantillas y el sistema para convertir tus leads en clientes.</p>
+    <a href="index.html#recursos" class="cta-btn">Ver el Kit Funnel →</a>
+  </div>
+
+  <p class="section-label">Más herramientas gratis de Kitify</p>
+  <div class="tools-grid">
+    <a href="whatsapp-generator.html" class="tool-link-card active" style="text-decoration:none;">
+      <span class="icon">💬</span>
+      <div>
+        <div class="name">WhatsApp URL Generator</div>
+        <div class="tag" style="color:var(--green-light);">Disponible</div>
+      </div>
+    </a>
+    <a href="ticket-promedio-calculator.html" class="tool-link-card active" style="text-decoration:none;">
+      <span class="icon">📊</span>
+      <div>
+        <div class="name">Ticket Promedio Calculator</div>
+        <div class="tag" style="color:var(--green-light);">Disponible</div>
+      </div>
+    </a>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 Kitify · <a href="index.html">getkitify.com</a></p>
+</footer>
+
+<script>
+  function switchTab(tab) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  function fmt(n) { return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }); }
+  function fmt2(n) { return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+  function fmtX(n) { return n.toFixed(2) + 'x'; }
+
+  function calculate() {
+    // ── Inputs ──
+    const budget = parseFloat(document.getElementById('budgetMonthly').value) || 0;
+    const months = parseFloat(document.getElementById('months').value) || 1;
+    const agencyPct = (parseFloat(document.getElementById('agencyFee').value) || 0) / 100;
+
+    const pctGoogle = (parseFloat(document.getElementById('pctGoogle').value) || 0) / 100;
+    const pctMeta = (parseFloat(document.getElementById('pctMeta').value) || 0) / 100;
+    const pctRem = (parseFloat(document.getElementById('pctRemarketing').value) || 0) / 100;
+    const pctSum = (pctGoogle + pctMeta + pctRem) * 100;
+
+    const pctSumEl = document.getElementById('pctSumLabel');
+    pctSumEl.textContent = `Suma: ${pctSum.toFixed(1)}% ${Math.abs(pctSum - 100) < 0.1 ? '✓' : '— debe ser 100%'}`;
+    pctSumEl.className = 'pct-sum ' + (Math.abs(pctSum - 100) < 0.1 ? 'ok' : 'warn');
+
+    // ── Tab 1: Presupuesto ──
+    const totalMedia = budget * months;
+    const feeMonthly = budget * agencyPct;
+    const feeTotal = feeMonthly * months;
+    const totalGeneral = totalMedia + feeTotal;
+    const monthlyTotal = budget + feeMonthly;
+
+    document.getElementById('r-totalMedia').textContent = fmt(totalMedia);
+    document.getElementById('r-totalMediaSub').textContent = `${fmt(budget)}/mes × ${months} meses`;
+    document.getElementById('r-totalFee').textContent = fmt(feeTotal);
+    document.getElementById('r-totalFeeSub').textContent = `${fmt(feeMonthly)}/mes × ${months} meses`;
+    document.getElementById('r-totalGeneral').textContent = fmt(totalGeneral);
+    document.getElementById('r-totalGeneralSub').textContent = `${fmt(monthlyTotal)}/mes total`;
+    document.getElementById('r-monthlyTotal').textContent = fmt(monthlyTotal);
+
+    const channels = [
+      { name: 'Google Search (Marca)', color: '#4285F4', pct: pctGoogle },
+      { name: 'Meta Ads – Leads', color: '#1877F3', pct: pctMeta },
+      { name: 'Meta Remarketing', color: '#9E8FFF', pct: pctRem }
+    ];
+    document.getElementById('channelBreakdown').innerHTML = channels.map(c => `
+      <div class="ch-row">
+        <div class="ch-left">
+          <span class="channel-dot" style="background:${c.color};"></span>
+          <span class="ch-name">${c.name}</span>
+          <span class="ch-pct">${(c.pct * 100).toFixed(0)}%</span>
+        </div>
+        <span class="ch-amount" style="color:${c.color};">${fmt2(budget * c.pct)}<span style="font-size:11px;color:var(--dim);font-weight:400;">/mes</span></span>
+      </div>
+    `).join('');
+
+    // ── Tab 2: Rendimiento ──
+    const ticket = parseFloat(document.getElementById('ticket').value) || 0;
+    const convRate = (parseFloat(document.getElementById('convRate').value) || 0) / 100;
+    const cplCons = parseFloat(document.getElementById('cplCons').value) || 1;
+    const cplOpt = parseFloat(document.getElementById('cplOpt').value) || 1;
+
+    const scenarios = [
+      { label: 'Conservador', badge: 'badge-cons', cpl: cplCons },
+      { label: 'Optimista', badge: 'badge-opt', cpl: cplOpt }
+    ];
+
+    document.getElementById('scenarioBody').innerHTML = scenarios.map(s => {
+      const leads = budget / s.cpl;
+      const clients = leads * convRate;
+      const revenue = clients * ticket;
+      const roi = budget > 0 ? revenue / budget : 0;
+      return `<tr>
+        <td><span class="scenario-badge ${s.badge}">${s.label}</span></td>
+        <td class="highlight">${leads.toFixed(1)}</td>
+        <td class="highlight">${clients.toFixed(1)}</td>
+        <td class="highlight">${fmt2(revenue)}</td>
+        <td class="highlight" style="color:${roi >= 1 ? 'var(--green-light)' : 'var(--coral)'};">${fmtX(roi)}</td>
+      </tr>`;
+    }).join('');
+
+    document.getElementById('totalsBody').innerHTML = scenarios.map(s => {
+      const leadsTotal = (budget / s.cpl) * months;
+      const clientsTotal = leadsTotal * convRate;
+      const revenueTotal = clientsTotal * ticket;
+      const roiTotal = totalMedia > 0 ? revenueTotal / totalMedia : 0;
+      return `<tr>
+        <td><span class="scenario-badge ${s.badge}">${s.label}</span></td>
+        <td class="highlight">${leadsTotal.toFixed(0)}</td>
+        <td class="highlight">${clientsTotal.toFixed(1)}</td>
+        <td class="highlight">${fmt2(revenueTotal)}</td>
+        <td class="highlight" style="color:${roiTotal >= 1 ? 'var(--green-light)' : 'var(--coral)'};">${fmtX(roiTotal)}</td>
+      </tr>`;
+    }).join('');
+
+    const beClients = ticket > 0 ? budget / ticket : 0;
+    const beLeads = convRate > 0 ? beClients / convRate : 0;
+    document.getElementById('beClients').textContent = beClients.toFixed(2);
+    document.getElementById('beLeads').textContent = beLeads.toFixed(2);
+
+    // ── Tab 3: Metas ──
+    const metaConv = (parseFloat(document.getElementById('metaConv').value) || 0) / 100;
+    const metaCPL = parseFloat(document.getElementById('metaCPL').value) || 1;
+    const clientTargets = [2, 4, 6, 8, 10];
+
+    document.getElementById('targetsBody').innerHTML = clientTargets.map(c => {
+      const leadsReq = metaConv > 0 ? c / metaConv : 0;
+      const budgetReq = leadsReq * metaCPL;
+      return `<tr>
+        <td class="td-num">${c} clientes</td>
+        <td class="td-num">${leadsReq.toFixed(1)} leads</td>
+        <td class="td-num" style="color:var(--violet-light);">${fmt(budgetReq)}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  calculate();
+</script>
+</body>
+</html>
