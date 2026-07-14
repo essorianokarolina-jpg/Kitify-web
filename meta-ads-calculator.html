@@ -47,8 +47,8 @@
 
     /* OBJECTIVE TABS */
     .obj-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 2rem 0 1.5rem; }
-    .obj-tab { padding: 1rem 0.75rem; border-radius: 14px; cursor: pointer; border: 0.5px solid var(--border2); background: var(--night3); text-align: center; transition: all 0.2s; }
-    .obj-tab:hover { border-color: var(--violet); }
+    .obj-tab { padding: 1rem 0.75rem; border-radius: 14px; cursor: pointer; border: 0.5px solid var(--border2); background: var(--night3); text-align: center; transition: all 0.25s; }
+    .obj-tab:hover { border-color: var(--violet); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(123,97,255,0.12); }
     .obj-tab.active { border-color: var(--violet); background: var(--night4); }
     .obj-tab .obj-icon { font-size: 22px; margin-bottom: 6px; }
     .obj-tab .obj-name { font-size: 13px; font-weight: 700; font-family: var(--font-head); color: var(--white); }
@@ -87,8 +87,8 @@
     .strategy-section { margin-bottom: 14px; }
     .strategy-label { font-size: 12px; color: var(--muted); font-weight: 500; margin-bottom: 8px; display: block; }
     .strategy-options { display: flex; flex-direction: column; gap: 6px; }
-    .strategy-opt { display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; border-radius: 10px; border: 0.5px solid var(--border2); background: var(--night); cursor: pointer; transition: all 0.2s; }
-    .strategy-opt:hover { border-color: var(--violet); }
+    .strategy-opt { display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; border-radius: 10px; border: 0.5px solid var(--border2); background: var(--night); cursor: pointer; transition: all 0.25s; }
+    .strategy-opt:hover { border-color: var(--violet); transform: translateX(3px); }
     .strategy-opt.selected { border-color: var(--violet); background: #1E1A35; }
     .strategy-opt input[type=radio] { accent-color: var(--violet); margin-top: 3px; flex-shrink: 0; }
     .strategy-opt-content { flex: 1; }
@@ -170,8 +170,8 @@
     /* OTHER TOOLS */
     .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); margin-bottom: 1rem; margin-top: 2.5rem; display: block; }
     .tools-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 3rem; }
-    .tool-card-link { background: var(--night3); border: 0.5px solid var(--border2); border-radius: 12px; padding: 1rem; display: flex; align-items: center; gap: 10px; transition: border-color 0.2s; }
-    .tool-card-link:hover { border-color: var(--violet); }
+    .tool-card-link { background: var(--night3); border: 0.5px solid var(--border2); border-radius: 12px; padding: 1rem; display: flex; align-items: center; gap: 10px; transition: all 0.25s; }
+    .tool-card-link:hover { border-color: var(--violet); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(123,97,255,0.12); }
     .tc-icon { font-size: 18px; }
     .tc-name { font-size: 12px; font-weight: 600; }
     .tc-tag { font-size: 10px; color: var(--green-light); }
@@ -195,37 +195,37 @@
       <div class="logo-mark"><span></span><span></span><span></span><span></span></div>
       <span class="logo-text">kitify</span>
     </a>
-    <a href="index.html" class="back-link">← Volver al inicio</a>
+    <a href="index.html" class="back-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg> Volver al inicio</a>
   </div>
 </nav>
 
 <div class="container">
 
   <div class="tool-hero">
-    <div class="tool-pill">🛠️ Herramienta gratis de Kitify</div>
+    <div class="tool-pill">Herramienta gratis de Kitify</div>
     <h1>Calculadora de<br><span>Meta Ads</span></h1>
-    <p>Elige tu objetivo, define tu estrategia de puja y proyecta resultados reales — antes de invertir un solo dólar.</p>
+    <p>Elige tu objetivo, define tu estrategia de puja y proyecta resultados reales antes de invertir un solo dólar.</p>
   </div>
 
   <!-- OBJECTIVE TABS -->
   <div class="obj-tabs">
     <div class="obj-tab active" onclick="switchObj('leads',this)">
-      <div class="obj-icon">🎯</div>
+      <div class="obj-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
       <div class="obj-name">Leads</div>
       <div class="obj-desc">Generar contactos</div>
     </div>
     <div class="obj-tab" onclick="switchObj('ventas',this)">
-      <div class="obj-icon">🛒</div>
+      <div class="obj-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
       <div class="obj-name">Ventas</div>
       <div class="obj-desc">Vender productos</div>
     </div>
     <div class="obj-tab" onclick="switchObj('trafico',this)">
-      <div class="obj-icon">🌐</div>
+      <div class="obj-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
       <div class="obj-name">Tráfico</div>
       <div class="obj-desc">Visitas a tu web</div>
     </div>
     <div class="obj-tab" onclick="switchObj('awareness',this)">
-      <div class="obj-icon">📣</div>
+      <div class="obj-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></div>
       <div class="obj-name">Awareness</div>
       <div class="obj-desc">Dar a conocer tu marca</div>
     </div>
@@ -246,27 +246,27 @@
             <label class="strategy-opt selected" onclick="selectStrategy('l','auto',this)">
               <input type="radio" name="l-strategy" value="auto" checked />
               <div class="strategy-opt-content">
-                <div class="strategy-opt-name">📈 Volumen más alto (Menor costo)</div>
+                <div class="strategy-opt-name">Volumen más alto</div>
                 <div class="strategy-opt-desc">Meta usa IA para maximizar conversiones con tu presupuesto. Ideal para empezar.</div>
               </div>
             </label>
             <label class="strategy-opt" onclick="selectStrategy('l','control',this)">
               <input type="radio" name="l-strategy" value="control" />
               <div class="strategy-opt-content">
-                <div class="strategy-opt-name">🎛️ Objetivo de costo por resultado</div>
+                <div class="strategy-opt-name">Objetivo de costo por resultado</div>
                 <div class="strategy-opt-desc">Tú defines el CPL promedio que quieres pagar. Más controlado, menor volumen.</div>
               </div>
             </label>
             <label class="strategy-opt" onclick="selectStrategy('l','bidcap',this)">
               <input type="radio" name="l-strategy" value="bidcap" />
               <div class="strategy-opt-content">
-                <div class="strategy-opt-name">🔒 Límite de puja (Bid Cap)</div>
+                <div class="strategy-opt-name">Límite de puja</div>
                 <div class="strategy-opt-desc">Monto máximo exacto por acción. Para anunciantes avanzados con márgenes estrictos.</div>
               </div>
             </label>
           </div>
           <div id="l-strategy-note" class="strategy-note auto">
-            ✅ <strong>Recomendado para empezar.</strong> Meta gasta todo tu presupuesto optimizando al menor costo. Los resultados pueden variar, pero suele dar el mayor volumen de leads.
+            <strong>Recomendado para empezar.</strong> Meta gasta todo tu presupuesto optimizando al menor costo. Los resultados pueden variar, pero suele dar el mayor volumen de leads.
           </div>
         </div>
 
@@ -278,7 +278,7 @@
         </div>
 
         <div class="form-group" id="l-cpl-group">
-          <label class="form-label">CPL estimado — Costo por Lead</label>
+          <label class="form-label">CPL estimado</label>
           <div class="input-wrap"><span class="input-prefix">$</span>
             <input class="form-input has-prefix" id="l-cpl" type="number" value="15" min="0.1" step="0.5" oninput="calcLeads()"/>
           </div>
@@ -286,7 +286,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label">Tasa de conversión Lead → Cliente</label>
+          <label class="form-label">Tasa de conversión Lead a Cliente</label>
           <div class="slider-row">
             <input type="range" id="l-conv" min="1" max="50" value="15" oninput="document.getElementById('l-conv-val').textContent=this.value+'%';calcLeads()">
             <span class="slider-val" id="l-conv-val">15%</span>
@@ -330,13 +330,13 @@
         </div>
         <div class="scenarios">
           <div class="scenario-card cons">
-            <div class="sc-label">😐 Conservador (+30% CPL)</div>
+            <div class="sc-label">Conservador (+30% CPL)</div>
             <div class="sc-row"><span>Leads/mes</span><span id="l-sc-leads-c">—</span></div>
             <div class="sc-row"><span>Clientes/mes</span><span id="l-sc-clients-c">—</span></div>
             <div class="sc-row"><span>Ingresos/mes</span><span id="l-sc-rev-c">—</span></div>
           </div>
           <div class="scenario-card opt">
-            <div class="sc-label">🚀 Optimista (-20% CPL)</div>
+            <div class="sc-label">Optimista (-20% CPL)</div>
             <div class="sc-row"><span>Leads/mes</span><span id="l-sc-leads-o">—</span></div>
             <div class="sc-row"><span>Clientes/mes</span><span id="l-sc-clients-o">—</span></div>
             <div class="sc-row"><span>Ingresos/mes</span><span id="l-sc-rev-o">—</span></div>
@@ -362,27 +362,27 @@
             <label class="strategy-opt selected" onclick="selectStrategy('v','auto',this)">
               <input type="radio" name="v-strategy" value="auto" checked />
               <div class="strategy-opt-content">
-                <div class="strategy-opt-name">📈 Volumen más alto (Menor costo)</div>
+                <div class="strategy-opt-name">Volumen más alto</div>
                 <div class="strategy-opt-desc">Meta maximiza la cantidad de ventas con tu presupuesto. Sin límite de CPA.</div>
               </div>
             </label>
             <label class="strategy-opt" onclick="selectStrategy('v','roas',this)">
               <input type="radio" name="v-strategy" value="roas" />
               <div class="strategy-opt-content">
-                <div class="strategy-opt-name">📊 Objetivo de ROAS</div>
+                <div class="strategy-opt-name">Objetivo de ROAS</div>
                 <div class="strategy-opt-desc">Le dices a Meta qué retorno quieres por cada dólar invertido. Requiere Píxel configurado.</div>
               </div>
             </label>
             <label class="strategy-opt" onclick="selectStrategy('v','bidcap',this)">
               <input type="radio" name="v-strategy" value="bidcap" />
               <div class="strategy-opt-content">
-                <div class="strategy-opt-name">🔒 Límite de puja (Bid Cap)</div>
+                <div class="strategy-opt-name">Límite de puja</div>
                 <div class="strategy-opt-desc">Controla el monto máximo por subasta. Útil para proteger márgenes estrictos.</div>
               </div>
             </label>
           </div>
           <div id="v-strategy-note" class="strategy-note auto">
-            ✅ <strong>Recomendado para empezar.</strong> Meta gasta todo tu presupuesto buscando ventas al menor costo posible. Ideal si no tienes histórico en el Píxel.
+            <strong>Recomendado para empezar.</strong> Meta gasta todo tu presupuesto buscando ventas al menor costo posible. Ideal si no tienes histórico en el Píxel.
           </div>
         </div>
 
@@ -394,7 +394,7 @@
         </div>
 
         <div class="form-group" id="v-cpa-group">
-          <label class="form-label">CPA estimado — Costo por Venta</label>
+          <label class="form-label">CPA estimado</label>
           <div class="input-wrap"><span class="input-prefix">$</span>
             <input class="form-input has-prefix" id="v-cpa" type="number" value="25" min="0.1" step="0.5" oninput="calcVentas()"/>
           </div>
@@ -445,13 +445,13 @@
         </div>
         <div class="scenarios">
           <div class="scenario-card cons">
-            <div class="sc-label">😐 Conservador (+30% CPA)</div>
+            <div class="sc-label">Conservador (+30% CPA)</div>
             <div class="sc-row"><span>Ventas/mes</span><span id="v-sc-sales-c">—</span></div>
             <div class="sc-row"><span>Ingresos/mes</span><span id="v-sc-rev-c">—</span></div>
             <div class="sc-row"><span>ROAS</span><span id="v-sc-roas-c">—</span></div>
           </div>
           <div class="scenario-card opt">
-            <div class="sc-label">🚀 Optimista (-20% CPA)</div>
+            <div class="sc-label">Optimista (-20% CPA)</div>
             <div class="sc-row"><span>Ventas/mes</span><span id="v-sc-sales-o">—</span></div>
             <div class="sc-row"><span>Ingresos/mes</span><span id="v-sc-rev-o">—</span></div>
             <div class="sc-row"><span>ROAS</span><span id="v-sc-roas-o">—</span></div>
@@ -477,27 +477,27 @@
             <label class="strategy-opt selected" onclick="selectStrategy('t','auto',this)">
               <input type="radio" name="t-strategy" value="auto" checked />
               <div class="strategy-opt-content">
-                <div class="strategy-opt-name">📈 Volumen más alto (Menor costo)</div>
+                <div class="strategy-opt-name">Volumen más alto</div>
                 <div class="strategy-opt-desc">Meta busca el máximo de clicks con tu presupuesto al menor CPC posible.</div>
               </div>
             </label>
             <label class="strategy-opt" onclick="selectStrategy('t','manual',this)">
               <input type="radio" name="t-strategy" value="manual" />
               <div class="strategy-opt-content">
-                <div class="strategy-opt-name">🖱️ CPC Manual</div>
+                <div class="strategy-opt-name">CPC Manual</div>
                 <div class="strategy-opt-desc">Defines el costo exacto por click. Más predecible pero Meta puede limitar el alcance.</div>
               </div>
             </label>
             <label class="strategy-opt" onclick="selectStrategy('t','capcost',this)">
               <input type="radio" name="t-strategy" value="capcost" />
               <div class="strategy-opt-content">
-                <div class="strategy-opt-name">💰 Límite de gasto</div>
+                <div class="strategy-opt-name">Límite de gasto</div>
                 <div class="strategy-opt-desc">Fijas un tope de gasto y Meta optimiza dentro de ese límite.</div>
               </div>
             </label>
           </div>
           <div id="t-strategy-note" class="strategy-note auto">
-            ✅ <strong>Recomendado para maximizar tráfico.</strong> Meta compite en subastas para traer clicks al menor costo. El CPC puede variar día a día pero el gasto total será tu presupuesto completo.
+            <strong>Recomendado para maximizar tráfico.</strong> Meta compite en subastas para traer clicks al menor costo. El CPC puede variar día a día pero el gasto total será tu presupuesto completo.
           </div>
         </div>
 
@@ -509,7 +509,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label">CPC estimado — Costo por Click</label>
+          <label class="form-label">CPC estimado</label>
           <div class="input-wrap"><span class="input-prefix">$</span>
             <input class="form-input has-prefix" id="t-cpc" type="number" value="0.50" min="0.01" step="0.01" oninput="calcTrafico()"/>
           </div>
@@ -517,7 +517,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label">Tasa de conversión visita → acción</label>
+          <label class="form-label">Tasa de conversión visita a acción</label>
           <div class="slider-row">
             <input type="range" id="t-conv" min="0.5" max="20" step="0.5" value="3" oninput="document.getElementById('t-conv-val').textContent=this.value+'%';calcTrafico()">
             <span class="slider-val" id="t-conv-val">3%</span>
@@ -560,12 +560,12 @@
         </div>
         <div class="scenarios">
           <div class="scenario-card cons">
-            <div class="sc-label">😐 Conservador (+30% CPC)</div>
+            <div class="sc-label">Conservador (+30% CPC)</div>
             <div class="sc-row"><span>Clicks/mes</span><span id="t-sc-clicks-c">—</span></div>
             <div class="sc-row"><span>Conversiones</span><span id="t-sc-convs-c">—</span></div>
           </div>
           <div class="scenario-card opt">
-            <div class="sc-label">🚀 Optimista (-20% CPC)</div>
+            <div class="sc-label">Optimista (-20% CPC)</div>
             <div class="sc-row"><span>Clicks/mes</span><span id="t-sc-clicks-o">—</span></div>
             <div class="sc-row"><span>Conversiones</span><span id="t-sc-convs-o">—</span></div>
           </div>
@@ -586,27 +586,27 @@
             <label class="strategy-opt selected" onclick="selectStrategy('a','auto',this)">
               <input type="radio" name="a-strategy" value="auto" checked />
               <div class="strategy-opt-content">
-                <div class="strategy-opt-name">📈 Volumen más alto (Menor costo)</div>
+                <div class="strategy-opt-name">Volumen más alto</div>
                 <div class="strategy-opt-desc">Meta maximiza impresiones y alcance con el menor CPM posible. Predeterminado.</div>
               </div>
             </label>
             <label class="strategy-opt" onclick="selectStrategy('a','capcost',this)">
               <input type="radio" name="a-strategy" value="capcost" />
               <div class="strategy-opt-content">
-                <div class="strategy-opt-name">💰 Límite de gasto</div>
+                <div class="strategy-opt-name">Límite de gasto</div>
                 <div class="strategy-opt-desc">Fijas un tope de inversión y Meta optimiza el alcance dentro de ese límite.</div>
               </div>
             </label>
             <label class="strategy-opt" onclick="selectStrategy('a','bidcap',this)">
               <input type="radio" name="a-strategy" value="bidcap" />
               <div class="strategy-opt-content">
-                <div class="strategy-opt-name">🔒 Límite de puja (Bid Cap)</div>
+                <div class="strategy-opt-name">Límite de puja</div>
                 <div class="strategy-opt-desc">Controlas el máximo que pagas por subasta. Menos impresiones pero más control sobre a quién llegas.</div>
               </div>
             </label>
           </div>
           <div id="a-strategy-note" class="strategy-note auto">
-            ✅ <strong>Recomendado para awareness.</strong> Meta distribuye tu presupuesto para llegar al mayor número de personas únicas al menor CPM. Ideal si estás construyendo marca desde cero.
+            <strong>Recomendado para awareness.</strong> Meta distribuye tu presupuesto para llegar al mayor número de personas únicas al menor CPM. Ideal si estás construyendo marca desde cero.
           </div>
         </div>
 
@@ -667,12 +667,12 @@
         </div>
         <div class="scenarios">
           <div class="scenario-card cons">
-            <div class="sc-label">😐 Conservador (+30% CPM)</div>
+            <div class="sc-label">Conservador (+30% CPM)</div>
             <div class="sc-row"><span>Impresiones/mes</span><span id="a-sc-impr-c">—</span></div>
             <div class="sc-row"><span>Alcance</span><span id="a-sc-reach-c">—</span></div>
           </div>
           <div class="scenario-card opt">
-            <div class="sc-label">🚀 Optimista (-20% CPM)</div>
+            <div class="sc-label">Optimista (-20% CPM)</div>
             <div class="sc-row"><span>Impresiones/mes</span><span id="a-sc-impr-o">—</span></div>
             <div class="sc-row"><span>Alcance</span><span id="a-sc-reach-o">—</span></div>
           </div>
@@ -685,7 +685,7 @@
   <div class="advisor-wrap">
     <div class="advisor-header" onclick="toggleAdvisor()">
       <div class="advisor-header-left">
-        <span style="font-size:18px;">🧭</span>
+        <span style="font-size:18px;"></span>
         <div>
           <div class="advisor-title">¿No sabes qué estrategia elegir?</div>
           <div class="advisor-subtitle">Responde 3 preguntas y te recomendamos la mejor para tu caso</div>
@@ -731,26 +731,26 @@
 
   <!-- INFO STRIP -->
   <div class="info-strip">
-    <div class="info-item"><div class="info-icon">⚡</div><div class="info-title">Tiempo real</div><div class="info-desc">Se actualiza mientras escribes</div></div>
-    <div class="info-item"><div class="info-icon">📊</div><div class="info-title">4 objetivos · 3 estrategias c/u</div><div class="info-desc">Leads, Ventas, Tráfico y Awareness</div></div>
-    <div class="info-item"><div class="info-icon">🔒</div><div class="info-title">100% privado</div><div class="info-desc">No guardamos tus datos</div></div>
+    <div class="info-item"><div class="info-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--violet-light)" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div class="info-title">Tiempo real</div><div class="info-desc">Se actualiza mientras escribes</div></div>
+    <div class="info-item"><div class="info-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--violet-light)" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><div class="info-title">4 objetivos · 3 estrategias c/u</div><div class="info-desc">Leads, Ventas, Tráfico y Awareness</div></div>
+    <div class="info-item"><div class="info-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--violet-light)" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="info-title">100% privado</div><div class="info-desc">No guardamos tus datos</div></div>
   </div>
 
   <div class="cta-box">
     <div class="cta-label">Siguiente paso</div>
     <h3>¿Quieres implementar tu funnel completo?</h3>
     <p>El Kit Funnel Completo te da el framework, las plantillas y el sistema para convertir tu inversión en resultados reales.</p>
-    <a href="index.html#recursos" class="cta-btn">Ver el Kit Funnel →</a>
+    <a href="index.html#recursos" class="cta-btn">Ver el Kit Funnel</a>
   </div>
 
   <span class="section-label">Más herramientas gratis de Kitify</span>
   <div class="tools-grid">
     <a href="whatsapp-generator.html" class="tool-card-link">
-      <span class="tc-icon">💬</span>
+      <span class="tc-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
       <div><div class="tc-name">WhatsApp URL Generator</div><div class="tc-tag">Disponible</div></div>
     </a>
     <a href="ticket-promedio-calculator.html" class="tool-card-link">
-      <span class="tc-icon">📊</span>
+      <span class="tc-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
       <div><div class="tc-name">Ticket Promedio Calculator</div><div class="tc-tag">Disponible</div></div>
     </a>
   </div>
@@ -776,12 +776,12 @@
 
   const strategyNotes = {
     l: {
-      auto: { cls:'auto', txt:'✅ <strong>Recomendado para empezar.</strong> Meta gasta todo tu presupuesto optimizando al menor costo. Da el mayor volumen de leads pero el CPL puede variar.' },
+      auto: { cls:'auto', txt:'<strong>Recomendado para empezar.</strong> Meta gasta todo tu presupuesto optimizando al menor costo. Da el mayor volumen de leads pero el CPL puede variar.' },
       control: { cls:'control', txt:'🎛️ <strong>Más predecible, menor volumen.</strong> Meta intentará mantener el CPL promedio que defines. Puede no gastar todo el presupuesto si no encuentra subastas dentro del límite. Requiere datos históricos.' },
       bidcap: { cls:'manual', txt:'⚠️ <strong>Para anunciantes avanzados.</strong> Meta solo participa en subastas por debajo de tu bid. Puede limitar drásticamente el alcance. Úsalo si tienes márgenes muy estrictos.' }
     },
     v: {
-      auto: { cls:'auto', txt:'✅ <strong>Recomendado si no tienes Píxel configurado.</strong> Meta busca ventas al menor CPA. El retorno puede variar pero es el punto de entrada más sencillo.' },
+      auto: { cls:'auto', txt:'<strong>Recomendado si no tienes Píxel configurado.</strong> Meta busca ventas al menor CPA. El retorno puede variar pero es el punto de entrada más sencillo.' },
       roas: { cls:'control', txt:'📊 <strong>Para campañas con Píxel maduro.</strong> Meta prioriza usuarios con alta probabilidad de comprar. Requiere al menos 50 conversiones recientes para funcionar bien. Si el ROAS objetivo es muy alto, Meta puede no gastar el presupuesto completo.' },
       bidcap: { cls:'manual', txt:'⚠️ <strong>Control máximo, volumen reducido.</strong> Útil para proteger márgenes. Si el bid es demasiado bajo, Meta pierde subastas y la campaña puede entrar en "modo de aprendizaje" extendido.' }
     },

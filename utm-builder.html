@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UTM Builder gratis | Kitify</title>
+  <meta name="description" content="Crea tus links con parámetros UTM en segundos. Genera múltiples variantes, cópialos y guarda tu historial. Gratis, sin registro." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --violet: #7B61FF; --violet-light: #9E8FFF; --violet-dark: #5340C9;
+      --coral: #FF7A5A; --coral-dark: #CC4A28;
+      --green: #2D9E75; --green-light: #5FD9A8;
+      --night: #1A1A2E; --night2: #12122A; --night3: #22224A; --night4: #2A2A40;
+      --border: #2E2E4A; --border2: #3E3E5E;
+      --muted: #8888AA; --dim: #55557A; --white: #ffffff;
+      --font-head: 'Plus Jakarta Sans', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+    body { background: var(--night); color: var(--white); font-family: var(--font-body); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+    h1, h2, h3 { font-family: var(--font-head); }
+    a { text-decoration: none; color: inherit; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 2rem; }
+
+    /* NAV */
+    nav { border-bottom: 0.5px solid var(--border); padding: 1rem 0; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+    .logo { display: flex; align-items: center; gap: 9px; }
+    .logo-mark { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; width: 22px; height: 22px; }
+    .logo-mark span { border-radius: 3px; background: var(--violet); }
+    .logo-mark span:nth-child(2), .logo-mark span:nth-child(3) { opacity: 0.5; }
+    .logo-mark span:nth-child(4) { opacity: 0.25; }
+    .logo-text { font-family: var(--font-head); font-size: 18px; font-weight: 700; letter-spacing: -0.4px; }
+    .back-link { font-size: 13px; color: var(--muted); transition: color 0.2s; }
+    .back-link:hover { color: var(--white); }
+
+    /* HERO */
+    .tool-hero { padding: 3rem 0 2rem; text-align: center; }
+    .tool-pill { display: inline-block; background: var(--night4); border: 0.5px solid var(--border2); border-radius: 20px; padding: 5px 16px; margin-bottom: 1.25rem; font-size: 12px; color: var(--violet-light); font-weight: 500; }
+    .tool-hero h1 { font-size: clamp(26px, 5vw, 40px); font-weight: 800; letter-spacing: -1px; line-height: 1.15; margin-bottom: 0.75rem; }
+    .tool-hero h1 span { color: var(--violet); }
+    .tool-hero p { font-size: 15px; color: var(--muted); max-width: 520px; margin: 0 auto; line-height: 1.7; }
+
+    /* TABS */
+    .tabs { display: flex; gap: 8px; margin: 2rem 0 1.5rem; }
+    .tab-btn { padding: 9px 20px; border-radius: 10px; font-size: 13px; font-weight: 600; font-family: var(--font-head); cursor: pointer; border: 0.5px solid var(--border2); background: var(--night3); color: var(--muted); transition: all 0.2s; }
+    .tab-btn.active { background: var(--violet); color: var(--white); border-color: var(--violet); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* CARD */
+    .card { background: var(--night3); border: 0.5px solid var(--border2); border-radius: 16px; padding: 1.5rem; margin-bottom: 1rem; }
+    .card-title { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1.25rem; font-family: var(--font-head); }
+
+    /* FORM */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+    .form-group.full { grid-column: span 2; }
+    .form-group:last-child { margin-bottom: 0; }
+    .form-label { font-size: 12px; color: var(--muted); font-weight: 500; display: flex; align-items: center; justify-content: space-between; }
+    .form-label .optional { font-size: 10px; background: var(--night4); color: var(--dim); padding: 1px 7px; border-radius: 8px; font-weight: 400; }
+    .form-hint { font-size: 11px; color: var(--dim); }
+    .form-input, .form-select {
+      background: var(--night); border: 0.5px solid var(--border2); border-radius: 9px;
+      padding: 11px 13px; font-size: 13px; color: var(--white); outline: none;
+      font-family: var(--font-body); transition: border-color 0.2s; width: 100%;
+    }
+    .form-input:focus, .form-select:focus { border-color: var(--violet); }
+    .form-input::placeholder { color: var(--dim); }
+    .form-select { cursor: pointer; }
+    .form-select option { background: var(--night3); }
+
+    /* PRESETS */
+    .presets { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1rem; }
+    .preset-btn { font-size: 11px; padding: 5px 12px; border-radius: 20px; border: 0.5px solid var(--border2); background: var(--night4); color: var(--muted); cursor: pointer; transition: all 0.2s; font-family: var(--font-head); font-weight: 500; }
+    .preset-btn:hover { border-color: var(--violet); color: var(--white); }
+
+    /* RESULT URL */
+    .result-box { background: var(--night2); border: 1px solid var(--violet); border-radius: 14px; padding: 1.25rem; margin-bottom: 1rem; }
+    .result-label { font-size: 11px; color: var(--violet-light); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; margin-bottom: 10px; }
+    .result-url-wrap { display: flex; gap: 8px; align-items: flex-start; }
+    .result-url { flex: 1; font-size: 12px; color: var(--violet-light); word-break: break-all; line-height: 1.6; background: var(--night); border: 0.5px solid var(--border2); border-radius: 9px; padding: 10px 13px; font-family: monospace; min-height: 44px; }
+    .result-url .utm-param { color: var(--coral); }
+    .result-url .utm-value { color: var(--green-light); }
+    .copy-btn { background: var(--violet); color: var(--white); font-size: 12px; font-weight: 600; padding: 10px 16px; border-radius: 9px; cursor: pointer; border: none; font-family: var(--font-head); white-space: nowrap; transition: background 0.2s; flex-shrink: 0; }
+    .copy-btn:hover { background: var(--violet-dark); }
+    .copy-btn.copied { background: var(--green); }
+    .save-btn { background: var(--night4); color: var(--muted); font-size: 12px; font-weight: 600; padding: 10px 16px; border-radius: 9px; cursor: pointer; border: 0.5px solid var(--border2); font-family: var(--font-head); white-space: nowrap; transition: all 0.2s; flex-shrink: 0; }
+    .save-btn:hover { border-color: var(--green); color: var(--green-light); }
+
+    /* MULTI UTM */
+    .multi-row { background: var(--night); border: 0.5px solid var(--border2); border-radius: 12px; padding: 1rem; margin-bottom: 10px; position: relative; }
+    .multi-row-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .multi-row-num { font-size: 11px; font-weight: 700; color: var(--violet-light); font-family: var(--font-head); }
+    .remove-row-btn { font-size: 12px; color: var(--dim); cursor: pointer; background: none; border: none; padding: 2px 8px; border-radius: 6px; transition: color 0.2s; }
+    .remove-row-btn:hover { color: var(--coral); }
+    .multi-row-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    .multi-result { font-size: 11px; color: var(--muted); word-break: break-all; margin-top: 8px; padding: 8px 10px; background: var(--night2); border-radius: 8px; font-family: monospace; line-height: 1.5; cursor: pointer; border: 0.5px solid transparent; transition: all 0.25s; }
+    .multi-result:hover { border-color: var(--violet); }
+    .multi-result.copied-flash { border-color: var(--green); color: var(--green-light); }
+    .add-row-btn { width: 100%; padding: 11px; border-radius: 10px; background: var(--night4); border: 0.5px dashed var(--border2); color: var(--muted); font-size: 13px; font-weight: 600; font-family: var(--font-head); cursor: pointer; transition: all 0.2s; margin-top: 4px; }
+    .add-row-btn:hover { border-color: var(--violet); color: var(--violet-light); }
+    .multi-copy-all { width: 100%; padding: 12px; border-radius: 10px; background: var(--violet); color: var(--white); font-size: 13px; font-weight: 700; font-family: var(--font-head); cursor: pointer; border: none; transition: background 0.2s; margin-top: 10px; }
+    .multi-copy-all:hover { background: var(--violet-dark); }
+
+    /* HISTORY */
+    .history-empty { text-align: center; padding: 3rem 1rem; color: var(--dim); }
+    .history-empty .icon { font-size: 32px; margin-bottom: 10px; }
+    .history-empty p { font-size: 13px; }
+    .history-item { background: var(--night); border: 0.5px solid var(--border2); border-radius: 12px; padding: 1rem; margin-bottom: 8px; display: flex; align-items: flex-start; gap: 10px; }
+    .history-item-content { flex: 1; min-width: 0; }
+    .history-item-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+    .history-tag { font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 600; font-family: var(--font-head); }
+    .history-tag.source { background: #1A2A1A; color: var(--green-light); }
+    .history-tag.medium { background: #2A1F5E; color: var(--violet-light); }
+    .history-tag.campaign { background: #2A1A10; color: #F5C542; }
+    .history-date { font-size: 10px; color: var(--dim); margin-left: auto; }
+    .history-url { font-size: 11px; color: var(--muted); word-break: break-all; font-family: monospace; line-height: 1.5; }
+    .history-actions { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
+    .h-copy-btn { font-size: 11px; padding: 6px 12px; border-radius: 8px; background: var(--night4); border: 0.5px solid var(--border2); color: var(--muted); cursor: pointer; font-family: var(--font-head); font-weight: 600; transition: all 0.2s; white-space: nowrap; }
+    .h-copy-btn:hover { border-color: var(--violet); color: var(--violet-light); }
+    .h-del-btn { font-size: 11px; padding: 6px 12px; border-radius: 8px; background: none; border: 0.5px solid var(--border2); color: var(--dim); cursor: pointer; font-family: var(--font-head); transition: all 0.2s; white-space: nowrap; }
+    .h-del-btn:hover { border-color: var(--coral); color: var(--coral); }
+    .clear-all-btn { width: 100%; padding: 10px; border-radius: 10px; background: none; border: 0.5px solid var(--border2); color: var(--dim); font-size: 12px; font-weight: 600; font-family: var(--font-head); cursor: pointer; transition: all 0.2s; margin-top: 8px; }
+    .clear-all-btn:hover { border-color: var(--coral); color: var(--coral); }
+
+    /* INFO STRIP */
+    .info-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 2.5rem 0; text-align: center; }
+    .info-item { background: var(--night2); border-radius: 12px; padding: 1.25rem 0.75rem; }
+    .info-icon { font-size: 20px; margin-bottom: 6px; }
+    .info-title { font-size: 12px; font-weight: 600; font-family: var(--font-head); margin-bottom: 2px; }
+    .info-desc { font-size: 11px; color: var(--muted); }
+
+    /* CTA */
+    .cta-box { background: linear-gradient(135deg, var(--night3), var(--night2)); border: 0.5px solid var(--border2); border-radius: 16px; padding: 1.75rem; text-align: center; margin: 2rem 0; }
+    .cta-label { font-size: 11px; color: var(--violet-light); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; margin-bottom: 10px; }
+    .cta-box h3 { font-size: 19px; font-weight: 700; margin-bottom: 8px; }
+    .cta-box p { font-size: 13px; color: var(--muted); margin-bottom: 1.25rem; max-width: 420px; margin-left: auto; margin-right: auto; }
+    .cta-btn { display: inline-block; background: var(--violet); color: var(--white); font-family: var(--font-head); font-size: 13px; font-weight: 700; padding: 11px 24px; border-radius: 24px; transition: background 0.2s; }
+    .cta-btn:hover { background: var(--violet-dark); }
+
+    /* OTHER TOOLS */
+    .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); margin-bottom: 1rem; margin-top: 2.5rem; display: block; }
+    .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 3rem; }
+    .tool-card-link { background: var(--night3); border: 0.5px solid var(--border2); border-radius: 12px; padding: 1rem; display: flex; align-items: center; gap: 10px; transition: all 0.25s; }
+    .tool-card-link:hover { border-color: var(--violet); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(123,97,255,0.12); }
+    .tc-icon { font-size: 18px; }
+    .tc-name { font-size: 12px; font-weight: 600; }
+    .tc-tag { font-size: 10px; color: var(--green-light); }
+
+    footer { border-top: 0.5px solid var(--border); padding: 2rem 0; text-align: center; }
+    footer p { font-size: 12px; color: var(--dim); }
+    footer a { color: var(--violet-light); }
+
+    @media (max-width: 680px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .form-group.full { grid-column: span 1; }
+      .multi-row-grid { grid-template-columns: 1fr; }
+      .info-strip, .tools-grid { grid-template-columns: 1fr; }
+      .result-url-wrap { flex-direction: column; }
+      .tabs { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-mark"><span></span><span></span><span></span><span></span></div>
+      <span class="logo-text">kitify</span>
+    </a>
+    <a href="index.html" class="back-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg> Volver al inicio</a>
+  </div>
+</nav>
+
+<div class="container">
+
+  <div class="tool-hero">
+    <div class="tool-pill">Herramienta gratis de Kitify</div>
+    <h1>UTM Builder<br><span>Crea links rastreables</span></h1>
+    <p>Genera links con parámetros UTM para rastrear de dónde viene tu tráfico en Google Analytics. Crea uno o varios a la vez y guárdalos en tu historial.</p>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('single', this)">Un link</button>
+    <button class="tab-btn" onclick="switchTab('multi', this)"> Múltiples links</button>
+    <button class="tab-btn" onclick="switchTab('history', this)"> Historial <span id="history-count"></span></button>
+  </div>
+
+  <!-- ── TAB: SINGLE ── -->
+  <div id="tab-single" class="tab-content active">
+
+    <!-- Presets -->
+    <div class="card">
+      <div class="card-title">Plantillas rápidas por canal</div>
+      <div class="presets">
+        <button class="preset-btn" onclick="applyPreset('instagram')">Instagram</button>
+        <button class="preset-btn" onclick="applyPreset('meta_ads')">Meta Ads</button>
+        <button class="preset-btn" onclick="applyPreset('email')">Email</button>
+        <button class="preset-btn" onclick="applyPreset('tiktok')">TikTok</button>
+        <button class="preset-btn" onclick="applyPreset('google_ads')">Google Ads</button>
+        <button class="preset-btn" onclick="applyPreset('whatsapp')">WhatsApp</button>
+        <button class="preset-btn" onclick="applyPreset('linkedin')">LinkedIn</button>
+        <button class="preset-btn" onclick="clearForm()">Limpiar</button>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="card">
+      <div class="card-title">Parámetros UTM</div>
+      <div class="form-grid">
+        <div class="form-group full">
+          <label class="form-label">URL de destino</label>
+          <input class="form-input" id="s-url" type="url" placeholder="https://getkitify.com/freebies" oninput="buildSingle()" />
+          <span class="form-hint">La URL completa a la que quieres llevar al usuario</span>
+        </div>
+        <div class="form-group full">
+          <label class="form-label">utm_id Campaign ID <span class="optional">Opcional</span></label>
+          <input class="form-input" id="s-id" type="text" placeholder="Ej: 7829333715" oninput="buildSingle()" />
+          <span class="form-hint">ID numérico de tu campaña en Google Ads o Meta Ads. Útil para vincular el link directamente con una campaña específica en tu plataforma de anuncios.</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label">utm_source <span style="color:var(--coral);font-size:11px;">*</span></label>
+          <input class="form-input" id="s-source" type="text" placeholder="instagram, google, email..." oninput="buildSingle()" />
+          <span class="form-hint">¿De dónde viene el tráfico?</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label">utm_medium <span style="color:var(--coral);font-size:11px;">*</span></label>
+          <input class="form-input" id="s-medium" type="text" placeholder="social, cpc, email, bio..." oninput="buildSingle()" />
+          <span class="form-hint">¿Qué tipo de canal es?</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label">utm_campaign <span style="color:var(--coral);font-size:11px;">*</span></label>
+          <input class="form-input" id="s-campaign" type="text" placeholder="lanzamiento_junio, black_friday..." oninput="buildSingle()" />
+          <span class="form-hint">Nombre de tu campaña</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label">utm_content <span class="optional">Opcional</span></label>
+          <input class="form-input" id="s-content" type="text" placeholder="boton_hero, banner_top..." oninput="buildSingle()" />
+          <span class="form-hint">¿Qué elemento o creatividad?</span>
+        </div>
+        <div class="form-group full">
+          <label class="form-label">utm_term <span class="optional">Opcional solo para Paid Search</span></label>
+          <input class="form-input" id="s-term" type="text" placeholder="marketing digital, plantillas gratis..." oninput="buildSingle()" />
+          <span class="form-hint">Palabra clave que activó el anuncio</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Result -->
+    <div class="result-box">
+      <div class="result-label">✅ Tu link con UTM</div>
+      <div class="result-url-wrap">
+        <div class="result-url" id="s-result">Completa los campos para ver tu link aquí...</div>
+        <button class="copy-btn" id="s-copy-btn" onclick="copySingle()">Copiar</button>
+        <button class="save-btn" onclick="saveToHistory()">Guardar</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── TAB: MULTI ── -->
+  <div id="tab-multi" class="tab-content">
+
+    <div class="card">
+      <div class="card-title">URL base para todas las variantes</div>
+      <div class="form-group" style="margin-bottom:0;">
+        <input class="form-input" id="m-url" type="url" placeholder="https://getkitify.com" oninput="buildMulti()" />
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Campaña y variantes por canal</div>
+      <div class="form-grid" style="margin-bottom:1rem;">
+        <div class="form-group">
+          <label class="form-label">utm_campaign</label>
+          <input class="form-input" id="m-campaign" type="text" placeholder="lanzamiento_julio" oninput="buildMulti()" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">utm_content <span class="optional">Opcional</span></label>
+          <input class="form-input" id="m-content" type="text" placeholder="boton_cta" oninput="buildMulti()" />
+        </div>
+      </div>
+
+      <div id="multi-rows"></div>
+      <button class="add-row-btn" onclick="addMultiRow()">+ Agregar canal</button>
+      <button class="multi-copy-all" onclick="copyAllMulti()"> Copiar todos los links</button>
+    </div>
+
+  </div>
+
+  <!-- ── TAB: HISTORY ── -->
+  <div id="tab-history" class="tab-content">
+    <div class="card">
+      <div class="card-title">Historial de links generados</div>
+      <div id="history-list"></div>
+    </div>
+  </div>
+
+  <!-- INFO -->
+  <div class="info-strip">
+    <div class="info-item"><div class="info-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--violet-light)" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div class="info-title">Generación instantánea</div><div class="info-desc">Se construye mientras escribes</div></div>
+    <div class="info-item"><div class="info-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--violet-light)" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><div class="info-title">Múltiples variantes</div><div class="info-desc">Genera links para todos tus canales a la vez</div></div>
+    <div class="info-item"><div class="info-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--violet-light)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="info-title">Historial local</div><div class="info-desc">Tus links guardados en este dispositivo</div></div>
+  </div>
+
+  <div class="cta-box">
+    <div class="cta-label">Siguiente paso</div>
+    <h3>¿Quieres implementar tu funnel completo?</h3>
+    <p>El Kit Funnel Completo te da el framework, las plantillas y el sistema para convertir tu tráfico en clientes.</p>
+    <a href="index.html#recursos" class="cta-btn">Ver el Kit Funnel</a>
+  </div>
+
+  <span class="section-label">Más herramientas gratis de Kitify</span>
+  <div class="tools-grid">
+    <a href="whatsapp-generator.html" class="tool-card-link">
+      <span class="tc-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--violet-light)" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><div><div class="tc-name">WhatsApp URL Generator</div><div class="tc-tag">Disponible</div></div>
+    </a>
+    <a href="ticket-promedio-calculator.html" class="tool-card-link">
+      <span class="tc-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--violet-light)" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span><div><div class="tc-name">Ticket Promedio Calculator</div><div class="tc-tag">Disponible</div></div>
+    </a>
+    <a href="meta-ads-calculator.html" class="tool-card-link">
+      <span class="tc-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--violet-light)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></span><div><div class="tc-name">Meta Ads Calculator</div><div class="tc-tag">Disponible</div></div>
+    </a>
+  </div>
+
+</div>
+<footer><p>© 2026 Kitify · <a href="index.html">getkitify.com</a></p></footer>
+
+<script>
+  // ── Presets ──
+  const presets = {
+    instagram: { source:'instagram', medium:'social', campaign:'', content:'bio_link', term:'' },
+    meta_ads:  { source:'facebook', medium:'cpc', campaign:'', content:'', term:'' },
+    email:     { source:'mailerlite', medium:'email', campaign:'', content:'cta_button', term:'' },
+    tiktok:    { source:'tiktok', medium:'social', campaign:'', content:'bio_link', term:'' },
+    google_ads:{ source:'google', medium:'cpc', campaign:'', content:'', term:'' },
+    whatsapp:  { source:'whatsapp', medium:'social', campaign:'', content:'mensaje_directo', term:'' },
+    linkedin:  { source:'linkedin', medium:'social', campaign:'', content:'', term:'' },
+  };
+
+  function applyPreset(key) {
+    const p = presets[key];
+    document.getElementById('s-source').value = p.source;
+    document.getElementById('s-medium').value = p.medium;
+    document.getElementById('s-content').value = p.content;
+    document.getElementById('s-term').value = p.term;
+    buildSingle();
+  }
+
+  function clearForm() {
+    ['s-url','s-source','s-medium','s-campaign','s-content','s-term'].forEach(id => document.getElementById(id).value = '');
+    buildSingle();
+  }
+
+  // ── Build single ──
+  function buildSingle() {
+    const url      = document.getElementById('s-url').value.trim();
+    const utmId    = document.getElementById('s-id').value.trim();
+    const source   = document.getElementById('s-source').value.trim();
+    const medium   = document.getElementById('s-medium').value.trim();
+    const campaign = document.getElementById('s-campaign').value.trim();
+    const content  = document.getElementById('s-content').value.trim();
+    const term     = document.getElementById('s-term').value.trim();
+    const resultEl = document.getElementById('s-result');
+
+    if (!url || !source || !medium || !campaign) {
+      resultEl.innerHTML = '<span style="color:var(--dim);">Completa URL, source, medium y campaign para ver tu link...</span>';
+      return;
+    }
+
+    const params = [];
+    if (utmId)    params.push(['utm_id', utmId]);
+    if (source)   params.push(['utm_source', source]);
+    if (medium)   params.push(['utm_medium', medium]);
+    if (campaign) params.push(['utm_campaign', campaign]);
+    if (content)  params.push(['utm_content', content]);
+    if (term)     params.push(['utm_term', term]);
+
+    const base = url.includes('?') ? url + '&' : url + '?';
+    const queryStr = params.map(([k,v]) => `${k}=${encodeURIComponent(v)}`).join('&');
+    window._currentUrl = base + queryStr;
+
+    const highlighted = params.map(([k,v]) =>
+      `<span class="utm-param">${k}</span>=<span class="utm-value">${encodeURIComponent(v)}</span>`
+    ).join('&');
+    resultEl.innerHTML = `<span style="color:var(--muted);">${url}${url.includes('?')?'&':'?'}</span>${highlighted}`;
+
+    const copyBtn = document.getElementById('s-copy-btn');
+    copyBtn.textContent = 'Copiar';
+    copyBtn.classList.remove('copied');
+  }
+
+  function copySingle() {
+    if (!window._currentUrl) return;
+    navigator.clipboard.writeText(window._currentUrl).then(() => {
+      const btn = document.getElementById('s-copy-btn');
+      btn.textContent = '✓ Copiado';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  // ── History ──
+  function getHistory() { try { return JSON.parse(localStorage.getItem('kitify_utms') || '[]'); } catch { return []; } }
+  function saveHistory(h) { localStorage.setItem('kitify_utms', JSON.stringify(h)); updateHistoryCount(); }
+
+  function saveToHistory() {
+    if (!window._currentUrl) return;
+    const source   = document.getElementById('s-source').value.trim();
+    const medium   = document.getElementById('s-medium').value.trim();
+    const campaign = document.getElementById('s-campaign').value.trim();
+    const utmId    = document.getElementById('s-id').value.trim();
+    const h = getHistory();
+    h.unshift({ url: window._currentUrl, source, medium, campaign, utmId, date: new Date().toLocaleDateString('es', {day:'2-digit',month:'short',year:'numeric'}) });
+    if (h.length > 50) h.pop();
+    saveHistory(h);
+    renderHistory();
+    const btn = document.querySelector('.save-btn');
+    btn.textContent = '✓ Guardado';
+    btn.style.color = 'var(--green-light)';
+    setTimeout(() => { btn.textContent = 'Guardar'; btn.style.color = ''; }, 2000);
+  }
+
+  function renderHistory() {
+    const h = getHistory();
+    const el = document.getElementById('history-list');
+    if (h.length === 0) {
+      el.innerHTML = `<div class="history-empty"><div class="icon"></div><p>Todavía no tienes links guardados.<br>Genera un link y haz clic en <strong>"Guardar"</strong> para que aparezca aquí.</p></div>`;
+      return;
+    }
+    el.innerHTML = h.map((item, i) => `
+      <div class="history-item">
+        <div class="history-item-content">
+          <div class="history-item-meta">
+            ${item.source ? `<span class="history-tag source">${item.source}</span>` : ''}
+            ${item.medium ? `<span class="history-tag medium">${item.medium}</span>` : ''}
+            ${item.campaign ? `<span class="history-tag campaign">${item.campaign}</span>` : ''}
+            ${item.utmId ? `<span class="history-tag" style="background:#1A1A2E;color:var(--muted);border:0.5px solid var(--border2);">ID: ${item.utmId}</span>` : ''}
+            <span class="history-date">${item.date}</span>
+          </div>
+          <div class="history-url">${item.url}</div>
+        </div>
+        <div class="history-actions">
+          <button class="h-copy-btn" onclick="copyHistoryItem(${i})">Copiar</button>
+          <button class="h-del-btn" onclick="deleteHistoryItem(${i})">Borrar</button>
+        </div>
+      </div>
+    `).join('') + (h.length > 1 ? `<button class="clear-all-btn" onclick="clearHistory()">🗑 Borrar todo el historial</button>` : '');
+  }
+
+  function copyHistoryItem(i) {
+    const h = getHistory();
+    navigator.clipboard.writeText(h[i].url).then(() => {
+      const btns = document.querySelectorAll('.h-copy-btn');
+      btns[i].textContent = '✓ Copiado';
+      setTimeout(() => { btns[i].textContent = 'Copiar'; }, 2000);
+    });
+  }
+
+  function deleteHistoryItem(i) {
+    const h = getHistory();
+    h.splice(i, 1);
+    saveHistory(h);
+    renderHistory();
+  }
+
+  function clearHistory() {
+    if (confirm('¿Borrar todo el historial?')) {
+      saveHistory([]);
+      renderHistory();
+    }
+  }
+
+  function updateHistoryCount() {
+    const count = getHistory().length;
+    document.getElementById('history-count').textContent = count > 0 ? `(${count})` : '';
+  }
+
+  // ── Multi UTM ──
+  let multiRowCount = 0;
+  const defaultChannels = [
+    { source: 'instagram', medium: 'social' },
+    { source: 'facebook', medium: 'cpc' },
+    { source: 'mailerlite', medium: 'email' },
+  ];
+
+  function addMultiRow(data) {
+    multiRowCount++;
+    const id = multiRowCount;
+    const container = document.getElementById('multi-rows');
+    const row = document.createElement('div');
+    row.className = 'multi-row';
+    row.id = `mrow-${id}`;
+    row.innerHTML = `
+      <div class="multi-row-header">
+        <span class="multi-row-num">Canal ${id}</span>
+        <button class="remove-row-btn" onclick="removeMultiRow(${id})">✕ Eliminar</button>
+      </div>
+      <div class="multi-row-grid">
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label" style="font-size:11px;">utm_source</label>
+          <input class="form-input" id="ms-${id}" type="text" placeholder="instagram" value="${data?.source||''}" oninput="buildMulti()" />
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label" style="font-size:11px;">utm_medium</label>
+          <input class="form-input" id="mm-${id}" type="text" placeholder="social" value="${data?.medium||''}" oninput="buildMulti()" />
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label" style="font-size:11px;">utm_term <span class="optional">Opcional</span></label>
+          <input class="form-input" id="mt-${id}" type="text" placeholder="" oninput="buildMulti()" />
+        </div>
+      </div>
+      <div class="multi-result" id="mr-${id}" onclick="copyMultiRow(${id})" title="Clic para copiar">Completa los campos...</div>
+    `;
+    container.insertBefore(row, container.querySelector('.add-row-btn'));
+    buildMulti();
+  }
+
+  function removeMultiRow(id) {
+    const el = document.getElementById(`mrow-${id}`);
+    if (el) el.remove();
+    buildMulti();
+  }
+
+  function buildMulti() {
+    const baseUrl  = document.getElementById('m-url').value.trim();
+    const campaign = document.getElementById('m-campaign').value.trim();
+    const content  = document.getElementById('m-content').value.trim();
+    const rows = document.querySelectorAll('.multi-row');
+    rows.forEach(row => {
+      const id = row.id.replace('mrow-','');
+      const source = document.getElementById(`ms-${id}`)?.value.trim()||'';
+      const medium = document.getElementById(`mm-${id}`)?.value.trim()||'';
+      const term   = document.getElementById(`mt-${id}`)?.value.trim()||'';
+      const resultEl = document.getElementById(`mr-${id}`);
+      if (!resultEl) return;
+      if (!baseUrl || !source || !medium || !campaign) {
+        resultEl.textContent = 'Completa URL base, campaign, source y medium...';
+        resultEl.dataset.url = '';
+        return;
+      }
+      const params = [`utm_source=${encodeURIComponent(source)}`, `utm_medium=${encodeURIComponent(medium)}`, `utm_campaign=${encodeURIComponent(campaign)}`];
+      if (content) params.push(`utm_content=${encodeURIComponent(content)}`);
+      if (term) params.push(`utm_term=${encodeURIComponent(term)}`);
+      const sep = baseUrl.includes('?') ? '&' : '?';
+      const fullUrl = baseUrl + sep + params.join('&');
+      resultEl.textContent = fullUrl;
+      resultEl.dataset.url = fullUrl;
+    });
+  }
+
+  function copyMultiRow(id) {
+    const el = document.getElementById(`mr-${id}`);
+    const url = el?.dataset?.url;
+    if (!url) return;
+    navigator.clipboard.writeText(url).then(() => {
+      el.classList.add('copied-flash');
+      const orig = el.textContent;
+      el.textContent = '✓ ¡Copiado!';
+      setTimeout(() => { el.textContent = orig; el.classList.remove('copied-flash'); }, 1500);
+    });
+  }
+
+  function copyAllMulti() {
+    const urls = [];
+    document.querySelectorAll('.multi-result').forEach(el => {
+      if (el.dataset.url) urls.push(el.dataset.url);
+    });
+    if (urls.length === 0) return;
+    navigator.clipboard.writeText(urls.join('\n')).then(() => {
+      const btn = document.querySelector('.multi-copy-all');
+      btn.textContent = '✓ Todos copiados';
+      setTimeout(() => { btn.textContent = ' Copiar todos los links'; }, 2000);
+    });
+  }
+
+  // ── Tab switch ──
+  function switchTab(tab, el) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    el.classList.add('active');
+    if (tab === 'history') renderHistory();
+  }
+
+  // ── Init ──
+  defaultChannels.forEach(c => addMultiRow(c));
+  renderHistory();
+  updateHistoryCount();
+</script>
+</body>
+</html>

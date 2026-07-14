@@ -142,7 +142,7 @@
     .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); margin-bottom: 1rem; }
     .tools-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
     .tool-link-card { background: var(--night3); border: 0.5px solid var(--border2); border-radius: 12px; padding: 1rem; display: flex; align-items: center; gap: 10px; opacity: 0.55; }
-    .tool-link-card.active { opacity: 1; cursor: pointer; transition: border-color 0.2s; }
+    .tool-link-card.active { opacity: 1; cursor: pointer; transition: all 0.25s; }
     .tool-link-card.active:hover { border-color: var(--violet); }
     .tool-link-card .icon { font-size: 18px; }
     .tool-link-card .name { font-size: 12px; font-weight: 600; color: var(--white); }
@@ -170,7 +170,7 @@
         <div class="logo-mark"><span></span><span></span><span></span><span></span></div>
         <span class="logo-text">kitify</span>
       </a>
-      <a href="index.html" class="back-link">← <span>Volver al inicio</span></a>
+      <a href="index.html" class="back-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg> Volver al inicio</a>
     </div>
   </nav>
 
@@ -178,15 +178,15 @@
 
     <!-- HERO -->
     <div class="tool-hero">
-      <div class="tool-pill">🛠️ Herramienta gratis de Kitify</div>
+      <div class="tool-pill">Herramienta gratis de Kitify</div>
       <h1>Calculadora de<br><span>Ticket Promedio Ponderado</span></h1>
-      <p>Si vendes varios productos o planes a precios distintos, esta herramienta te dice cuánto ganas realmente por venta — tomando en cuenta qué tan seguido se vende cada uno.</p>
+      <p>Si vendes varios productos o planes a precios distintos, esta herramienta te dice cuánto ganas realmente por venta tomando en cuenta qué tan seguido se vende cada uno.</p>
     </div>
 
     <!-- TOOL -->
     <div class="tool-card">
       <div class="card-header">
-        <span class="card-title">📊 Tu mix de productos o servicios</span>
+        <span class="card-title">Tu mix de productos o servicios</span>
         <button class="add-row-btn" onclick="addRow()">+ Agregar línea</button>
       </div>
 
@@ -207,7 +207,7 @@
 
     <!-- RESULT -->
     <div class="result-box">
-      <p class="result-label">✅ Ticket promedio ponderado</p>
+      <p class="result-label">Ticket promedio ponderado</p>
       <div class="result-value" id="resultValue">$0</div>
       <p class="result-sub">Esto es lo que ganas en promedio por cada venta, considerando tu mix actual.</p>
       <div class="breakdown" id="breakdown"></div>
@@ -216,17 +216,17 @@
     <!-- INFO -->
     <div class="info-strip">
       <div class="info-item">
-        <div class="info-icon">⚡</div>
+        <div class="info-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--violet-light)" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
         <div class="info-title">Cálculo automático</div>
         <div class="info-desc">Se actualiza al escribir</div>
       </div>
       <div class="info-item">
-        <div class="info-icon">🔒</div>
+        <div class="info-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--violet-light)" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
         <div class="info-title">100% privado</div>
         <div class="info-desc">No guardamos tus datos</div>
       </div>
       <div class="info-item">
-        <div class="info-icon">📱</div>
+        <div class="info-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--violet-light)" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
         <div class="info-title">Sin registro</div>
         <div class="info-desc">Úsala cuantas veces quieras</div>
       </div>
@@ -235,7 +235,7 @@
     <!-- EXPLAINER -->
     <div class="explainer">
       <h3>¿Para qué sirve esto?</h3>
-      <p>El ticket promedio ponderado es más preciso que un promedio simple. Si vendes 3 planes a precios distintos, no todos se venden igual de seguido — este número te dice cuánto ingresa realmente "por cliente" en promedio, y es la base para calcular tu ROI, tu punto de equilibrio y cuánto presupuesto de marketing puedes invertir con seguridad.</p>
+      <p>El ticket promedio ponderado es más preciso que un promedio simple. Si vendes 3 planes a precios distintos, no todos se venden igual de seguido este número te dice cuánto ingresa realmente "por cliente" en promedio, y es la base para calcular tu ROI, tu punto de equilibrio y cuánto presupuesto de marketing puedes invertir con seguridad.</p>
     </div>
 
     <!-- CTA -->
@@ -243,27 +243,27 @@
       <p class="label">Siguiente paso</p>
       <h3>¿Quieres proyectar tu ROI con este ticket?</h3>
       <p class="desc">El Kit Funnel Completo incluye el modelo de rendimiento completo: leads, conversión, ROI y punto de equilibrio.</p>
-      <a href="index.html#recursos" class="cta-btn">Ver el Kit Funnel →</a>
+      <a href="index.html#recursos" class="cta-btn">Ver el Kit Funnel</a>
     </div>
 
     <!-- OTHER TOOLS -->
     <div class="other-tools">
       <p class="section-label">Más herramientas gratis de Kitify</p>
       <div class="tools-grid">
-        <a href="whatsapp-generator.html" class="tool-link-card active">
-          <span class="icon">💬</span>
+        <a href="whatsapp-generator.html" class="tool-link-card active" style="text-decoration:none;transition:all 0.25s;">
+          <span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--violet-light)" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
           <div>
             <div class="name">Generador de links de WhatsApp</div>
-            <div class="tag">Disponible</div>
+            <div class="tag" style="color:#5FD9A8;">Disponible</div>
           </div>
         </a>
-        <div class="tool-link-card">
-          <span class="icon">💰</span>
+        <a href="meta-ads-calculator.html" class="tool-link-card" style="text-decoration:none;transition:all 0.25s;">
+          <span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--violet-light)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></span>
           <div>
-            <div class="name">Media Budget Planner</div>
-            <div class="tag">Próximamente</div>
+            <div class="name">Meta Ads Calculator</div>
+            <div class="tag" style="color:#5FD9A8;">Disponible</div>
           </div>
-        </div>
+        </a>
       </div>
     </div>
 
@@ -292,7 +292,7 @@
         <input class="row-input" type="text" placeholder="Nombre del producto" value="${data?.name || ''}" oninput="calculate()" />
         <input class="row-input" type="number" placeholder="0" min="0" step="0.01" value="${data?.price ?? ''}" oninput="calculate()" />
         <input class="row-input" type="number" placeholder="0" min="0" max="100" step="0.1" value="${data?.mix ?? ''}" oninput="calculate()" />
-        <button class="remove-btn" onclick="removeRow(${rowId})">✕</button>
+        <button class="remove-btn" onclick="removeRow(${rowId})">×</button>
       `;
       container.appendChild(row);
     }
@@ -331,7 +331,7 @@
       const breakdownEl = document.getElementById('breakdown');
       breakdownEl.innerHTML = breakdownItems.map(item => `
         <div class="breakdown-item">
-          <span class="bname">${item.name} — $${item.price} × ${item.mix}%</span>
+          <span class="bname">${item.name} $${item.price} × ${item.mix}%</span>
           <span class="bval">$${item.contribution.toFixed(2)}</span>
         </div>
       `).join('');
