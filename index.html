@@ -133,6 +133,8 @@
     .tc-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
     .tc-name{font-family:var(--fh);font-size:14px;font-weight:700;color:var(--n);line-height:1.2;}
     .tool-card.active .tc-name{color:var(--v);}
+    .tc-open-hint{display:flex;align-items:center;gap:4px;font-size:10px;font-weight:600;color:var(--v);font-family:var(--fh);opacity:0;transition:opacity .25s;margin-top:4px;}
+    .tc-open-hint svg{flex-shrink:0;}
     .tc-desc{font-size:12px;color:#6B6B8A;line-height:1.5;margin-bottom:8px;}
     .tc-tag-row{display:flex;gap:5px;flex-wrap:wrap;}
     .tc-tag{font-size:10px;font-weight:600;padding:3px 9px;border-radius:20px;font-family:var(--fh);}
@@ -388,6 +390,7 @@
           </div>
           <p class="tc-desc">Calcula tu ticket promedio ponderado según el mix de ventas de tu negocio.</p>
           <div class="tc-tag-row"><span class="tc-tag" style="background:rgba(123,97,255,.1);color:var(--v);">Pricing</span><span class="tc-tag" style="background:rgba(255,122,90,.1);color:#FF7A5A;">Resultados reales</span></div>
+          <div class="tc-open-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg> Clic para abrir</div>
         </div>
       </div>
       <div class="phone-center">
@@ -424,6 +427,7 @@
           </div>
           <p class="tc-desc">Proyecta tus leads, ventas y ROI antes de invertir un solo dólar en Meta Ads.</p>
           <div class="tc-tag-row"><span class="tc-tag" style="background:rgba(74,158,245,.1);color:#4A9EF5;">4 objetivos</span><span class="tc-tag" style="background:rgba(45,158,117,.1);color:#2D9E75;">ROI real</span></div>
+          <div class="tc-open-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg> Clic para abrir</div>
         </div>
         <div class="tool-card" onclick="selectTool('utm',this)" data-tool="utm">
           <div class="tc-header">
@@ -432,6 +436,7 @@
           </div>
           <p class="tc-desc">Crea links rastreables con parámetros UTM para todos tus canales. Con historial incluido.</p>
           <div class="tc-tag-row"><span class="tc-tag" style="background:rgba(255,122,90,.1);color:#FF7A5A;">Analytics</span><span class="tc-tag" style="background:rgba(123,97,255,.08);color:var(--v);">Multi-canal</span></div>
+          <div class="tc-open-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg> Clic para abrir</div>
         </div>
       </div>
     </div>
@@ -526,30 +531,31 @@
         <a onclick="return false;" href="https://pay.hotmart.com/V107629809J?checkoutMode=2" class="hotmart-fb hotmart__button-checkout card-btn" style="background:var(--v);color:#fff;text-align:center;text-decoration:none;border-radius:12px;padding:11px;font-family:var(--fh);font-size:13px;font-weight:700;display:block;">Descargar ahora</a>
       </div>
 
-    </div>
 
-    <!-- Bundle full width -->
-    <div style="margin-top:16px;background:linear-gradient(135deg,#22224A,#1A1A2E);border:1px solid rgba(123,97,255,.3);border-radius:20px;padding:2rem 2.5rem;display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;position:relative;overflow:hidden;">
-      <div style="position:absolute;width:300px;height:300px;background:radial-gradient(circle,rgba(123,97,255,.15) 0%,transparent 70%);top:-80px;right:100px;pointer-events:none;"></div>
-      <div style="position:relative;z-index:1;">
-        <span style="display:inline-flex;align-items:center;gap:4px;background:rgba(255,122,90,.2);color:#FF9E7A;font-size:10px;font-weight:700;padding:3px 12px;border-radius:20px;font-family:var(--fh);margin-bottom:10px;border:1px solid rgba(255,122,90,.3);">⚡ Bundle — mejor valor</span>
-        <div style="font-family:var(--fh);font-size:22px;font-weight:800;color:#fff;margin-bottom:6px;">Los 3 tools en un solo kit</div>
-        <p style="font-size:13px;color:var(--mu);line-height:1.6;margin-bottom:14px;max-width:600px;">Meta Ads Calculator + Link Generator Kit + Ticket Promedio Calculator. Todo lo que necesitas para calcular, rastrear y escalar.</p>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <span style="font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;background:rgba(123,97,255,.2);color:var(--vl);font-family:var(--fh);">Meta Ads Calculator</span>
-          <span style="font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;background:rgba(123,97,255,.2);color:var(--vl);font-family:var(--fh);">Link Generator Kit</span>
-          <span style="font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;background:rgba(123,97,255,.2);color:var(--vl);font-family:var(--fh);">Ticket Promedio Calculator</span>
+
+      <!-- Bundle — 4th card -->
+      <div class="freebie-card" style="--card-color:#FF7A5A;background:var(--n);border:1.5px solid rgba(123,97,255,.35);position:relative;overflow:hidden;">
+        <div style="position:absolute;width:200px;height:200px;background:radial-gradient(circle,rgba(123,97,255,.18) 0%,transparent 70%);top:-60px;right:-40px;pointer-events:none;"></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1;">
+          <div class="card-icon" style="background:rgba(255,122,90,.15);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FF7A5A" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <span style="display:inline-flex;align-items:center;gap:4px;background:rgba(255,122,90,.2);color:#FF9E7A;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;font-family:var(--fh);border:1px solid rgba(255,122,90,.3);">⚡ Mejor valor</span>
         </div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:14px;flex-shrink:0;position:relative;z-index:1;">
-        <div style="text-align:right;">
-          <div style="font-size:13px;color:var(--dim);text-decoration:line-through;font-family:var(--fh);">$69 USD por separado</div>
-          <div style="font-size:40px;font-weight:800;color:#fff;font-family:var(--fh);letter-spacing:-2px;line-height:1;">$49</div>
-          <div style="font-size:12px;color:var(--mu);font-family:var(--fh);">USD</div>
-          <div style="font-size:11px;color:var(--gl);font-weight:700;font-family:var(--fh);">Ahorras $20 comprando el kit</div>
+        <div class="card-name" style="color:#fff;position:relative;z-index:1;">Los 3 tools en un kit</div>
+        <div class="card-desc" style="position:relative;z-index:1;">Meta Ads Calculator + Link Generator Kit + Ticket Promedio. Todo lo que necesitas para calcular, rastrear y escalar.</div>
+        <div class="card-tags" style="position:relative;z-index:1;">
+          <span class="card-tag" style="background:rgba(123,97,255,.2);color:var(--vl);">3 Excel pro</span>
+          <span class="card-tag" style="background:rgba(123,97,255,.2);color:var(--vl);">3 Guías PDF</span>
         </div>
-        <a onclick="return false;" href="https://pay.hotmart.com/U107629918C?checkoutMode=2" class="hotmart-fb hotmart__button-checkout" style="display:block;padding:14px 32px;border-radius:12px;background:var(--c);color:#fff;font-family:var(--fh);font-size:14px;font-weight:700;text-align:center;text-decoration:none;border:none;white-space:nowrap;transition:background .2s;">Comprar el bundle</a>
+        <div style="display:flex;align-items:baseline;gap:8px;margin-top:4px;position:relative;z-index:1;">
+          <span style="font-size:13px;color:var(--dim);text-decoration:line-through;font-family:var(--fh);">$69</span>
+          <span style="font-size:26px;font-weight:800;color:#fff;font-family:var(--fh);letter-spacing:-1px;">$49 <span style="font-size:13px;font-weight:500;color:var(--mu);">USD</span></span>
+        </div>
+        <div style="font-size:10px;color:var(--gl);font-weight:700;font-family:var(--fh);position:relative;z-index:1;">Ahorras $20 comprando el kit</div>
+        <a onclick="return false;" href="https://pay.hotmart.com/U107629918C?checkoutMode=2" class="hotmart-fb hotmart__button-checkout card-btn" style="background:var(--c);color:#fff;text-align:center;text-decoration:none;border-radius:12px;padding:11px;font-family:var(--fh);font-size:13px;font-weight:700;display:block;position:relative;z-index:1;">Comprar el bundle</a>
       </div>
+
     </div>
 
   </div>
@@ -669,17 +675,32 @@ const toolLinks = {
 };
 let current = 'ticket';
 function selectTool(key, cardEl) {
-  if(current === key) return;
+  // 2nd click on active card → go to tool
+  if(current === key) {
+    window.open(toolLinks[key], '_blank');
+    return;
+  }
   current = key;
   ['whatsapp','ticket','meta','utm'].forEach(k => {
     document.getElementById('img-'+k).style.display = k===key ? 'block' : 'none';
   });
-  document.querySelectorAll('.tool-card').forEach(c => c.classList.remove('active'));
-  document.querySelectorAll('[data-tool="'+key+'"]').forEach(c => c.classList.add('active'));
+  document.querySelectorAll('.tool-card').forEach(c => {
+    c.classList.remove('active');
+    c.querySelector('.tc-open-hint') && (c.querySelector('.tc-open-hint').style.opacity = '0');
+  });
+  document.querySelectorAll('[data-tool="'+key+'"]').forEach(c => {
+    c.classList.add('active');
+    // Show hint on active card
+    c.querySelector('.tc-open-hint') && (c.querySelector('.tc-open-hint').style.opacity = '1');
+  });
   document.querySelectorAll('.tool-dot').forEach(d => d.classList.toggle('active', d.dataset.dot===key));
   document.getElementById('tool-link').href = toolLinks[key];
 }
 document.getElementById('tool-link').href = toolLinks[current];
+// Show hint on initially active card
+document.querySelectorAll('[data-tool="'+current+'"]').forEach(c => {
+  c.querySelector('.tc-open-hint') && (c.querySelector('.tc-open-hint').style.opacity = '1');
+});
 </script>
 </body>
 </html>
