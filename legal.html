@@ -72,13 +72,27 @@
     footer { border-top: 1px solid var(--border); padding: 2.5rem 0 3rem; margin-top: 1rem; }
     footer p { font-size: 12px; color: var(--muted); text-align: center; margin: 0; }
   </style>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0J2CC9FWT1"></script>
+  <!-- Google tag (gtag.js) — carga sujeta al aviso de cookies -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-0J2CC9FWT1');
+    gtag('consent', 'default', { analytics_storage: 'denied' });
+
+    function kitifyLoadGA4() {
+      if (window.kitifyGA4Loaded) return;
+      window.kitifyGA4Loaded = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-0J2CC9FWT1';
+      document.head.appendChild(s);
+      gtag('consent', 'update', { analytics_storage: 'granted' });
+      gtag('config', 'G-0J2CC9FWT1');
+    }
+
+    if (localStorage.getItem('kitify_cookie_consent') === 'accepted') {
+      kitifyLoadGA4();
+    }
   </script>
 </head>
 <body>
@@ -158,5 +172,42 @@
     <p>© 2026 Kitify · <a href="index.html">getkitify.com</a></p>
   </footer>
 
+
+  <!-- COOKIE BANNER -->
+  <style>
+    #kitify-cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;z-index:9999;background:#1A1A2E;border:1px solid #2E2E4A;border-radius:16px;padding:1.1rem 1.25rem;box-shadow:0 12px 32px rgba(0,0,0,.35);display:none;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-family:'DM Sans',sans-serif;}
+    #kitify-cookie-banner p{margin:0;font-size:13px;line-height:1.5;color:#D8D8EE;max-width:520px;}
+    #kitify-cookie-banner a{color:#9E8FFF;text-decoration:underline;}
+    .kitify-cookie-actions{display:flex;gap:8px;flex-shrink:0;}
+    .kitify-cookie-btn{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;padding:9px 16px;border-radius:10px;cursor:pointer;border:none;}
+    .kitify-cookie-btn-accept{background:#7B61FF;color:#fff;}
+    .kitify-cookie-btn-reject{background:transparent;color:#8888AA;border:1px solid #3E3E5E;}
+    @media (max-width:600px){#kitify-cookie-banner{flex-direction:column;align-items:stretch;}.kitify-cookie-actions{width:100%;}.kitify-cookie-btn{flex:1;}}
+  </style>
+  <div id="kitify-cookie-banner">
+    <p>Usamos cookies propias y de Google Analytics para entender cómo usas el sitio y mejorarlo. <a href="privacidad.html">Más información</a>.</p>
+    <div class="kitify-cookie-actions">
+      <button id="kitify-cookie-reject" class="kitify-cookie-btn kitify-cookie-btn-reject">Rechazar</button>
+      <button id="kitify-cookie-accept" class="kitify-cookie-btn kitify-cookie-btn-accept">Aceptar</button>
+    </div>
+  </div>
+  <script>
+    (function(){
+      var consent = localStorage.getItem('kitify_cookie_consent');
+      var banner = document.getElementById('kitify-cookie-banner');
+      if (!consent && banner) { banner.style.display = 'flex'; }
+      var acceptBtn = document.getElementById('kitify-cookie-accept');
+      var rejectBtn = document.getElementById('kitify-cookie-reject');
+      if (acceptBtn) acceptBtn.addEventListener('click', function(){
+        localStorage.setItem('kitify_cookie_consent', 'accepted');
+        banner.style.display = 'none';
+        if (typeof kitifyLoadGA4 === 'function') kitifyLoadGA4();
+      });
+      if (rejectBtn) rejectBtn.addEventListener('click', function(){
+        localStorage.setItem('kitify_cookie_consent', 'rejected');
+        banner.style.display = 'none';
+      });
+    })();
+  </script>
 </body>
 </html>
