@@ -318,28 +318,28 @@
       <p class="label">Siguiente paso</p>
       <h3>¿Quieres convertir esos chats en ventas?</h3>
       <p class="desc">El Kit Funnel Completo te da el framework para llevar a cualquiera que te escriba por WhatsApp hasta la compra.</p>
-      <a href="index.html#recursos" class="cta-btn">Ver el Kit Funnel →</a>
+      <a href="index.html#recursos" class="cta-btn" data-track="upsell_kit_funnel_whatsapp">Ver el Kit Funnel →</a>
     </div>
 
     <!-- OTHER TOOLS -->
     <div class="other-tools">
       <p class="section-label">Más herramientas gratis de Kitify</p>
       <div class="tools-grid">
-        <a href="ticket-promedio-calculator.html" class="tool-link-card active">
+        <a href="ticket-promedio-calculator.html" class="tool-link-card active" data-track="cross_tool_ticket_promedio_from_whatsapp">
           <span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--violet-light)" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
           <div>
             <div class="name">Ticket Promedio Calculator</div>
             <div class="tag">Disponible</div>
           </div>
         </a>
-        <a href="meta-ads-calculator.html" class="tool-link-card active">
+        <a href="meta-ads-calculator.html" class="tool-link-card active" data-track="cross_tool_meta_ads_from_whatsapp">
           <span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--violet-light)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></span>
           <div>
             <div class="name">Meta Ads Calculator</div>
             <div class="tag">Disponible</div>
           </div>
         </a>
-        <a href="utm-builder.html" class="tool-link-card active">
+        <a href="utm-builder.html" class="tool-link-card active" data-track="cross_tool_utm_builder_from_whatsapp">
           <span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--violet-light)" stroke-width="2" stroke-linecap="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></span>
           <div>
             <div class="name">UTM Builder</div>
@@ -412,6 +412,20 @@
     });
   </script>
 
+
+  
+  <script>
+    document.addEventListener('click', function(e){
+      var el = e.target.closest('[data-track]');
+      if (!el) return;
+      if (typeof gtag === 'function') {
+        gtag('event', 'cta_click', {
+          cta_name: el.getAttribute('data-track'),
+          device_category: (window.innerWidth < 900 ? 'mobile' : 'desktop')
+        });
+      }
+    });
+  </script>
 
   <!-- COOKIE BANNER -->
   <style>
