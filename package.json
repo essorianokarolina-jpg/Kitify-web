@@ -1,0 +1,23 @@
+{
+  "name": "kitify-web",
+  "version": "1.0.0",
+  "description": "Marketing para armar - Herramientas y recursos digitales de marketing para emprendedores",
+  "private": true,
+  "scripts": {
+    "deploy": "vercel deploy",
+    "deploy:prod": "vercel deploy --prod"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/essorianokarolina-jpg/Kitify-web.git"
+  },
+  "keywords": [
+    "marketing",
+    "tools",
+    "analytics",
+    "calculators"
+  ],
+  "author": "Karol Soriano",
+  "license": "UNLICENSED",
+  "homepage": "https://getkitify.com"
+}
